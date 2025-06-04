@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, startTransition } from "react";
 import { createRoot } from "react-dom/client";
-import { useFormState, useFormStatus } from "react-dom";
+// Asumiendo que en React 19, estos hooks vendrán de 'react-dom' o 'react' directamente
+// Por ahora, la documentación experimental los ubica en 'react-dom/client' o 'react-dom'
+// para APIs relacionadas con el DOM como form actions.
+// Ajusta la importación según la versión final de React 19.
+import { useFormState, useFormStatus } from "react-dom"; // Importante: de 'react-dom'
 import axios from "axios";
 import "../css/app.css";
 
