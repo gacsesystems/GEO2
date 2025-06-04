@@ -131,3 +131,118 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+@font-face {
+    font-family: "Coco Gothic";
+    src: url("/fonts/CocoGothic-Regular.woff2") format("woff2"),
+        /* Ajusta rutas si es necesario */ url("/fonts/CocoGothic-Regular.woff")
+            format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Mejora la carga de fuentes */
+}
+@font-face {
+    font-family: "Coco Gothic";
+    src: url("/fonts/CocoGothic-Bold.woff2") format("woff2"),
+        url("/fonts/CocoGothic-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+/* Si tienes EXTRABOLD, añádelo también */
+/* @font-face {
+    font-family: 'Coco Gothic';
+    src: url('/fonts/CocoGothic-ExtraBold.woff2') format('woff2'),
+         url('/fonts/CocoGothic-ExtraBold.woff') format('woff');
+    font-weight: 800; // O el peso que corresponda
+    font-style: normal;
+    font-display: swap;
+} */
+
+/* @font-face {
+    font-family: "DM Sans";
+    src: url("/fonts/DMSans-Regular.woff2") format("woff2"),
+        url("/fonts/DMSans-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "DM Sans";
+    src: url("/fonts/DMSans-Bold.woff2") format("woff2"),
+        url("/fonts/DMSans-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+} */
+/* Añade otras variantes de DM Sans (Light, etc.) si las necesitas */
+
+/* Reseteo básico o normalización (opcional, pero recomendado) */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+button,
+input,
+form {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Comportamiento de caja más predecible */
+}
+
+body {
+    font-family: "DM Sans", sans-serif; /* Fuente base por defecto */
+    background-color: #f8f9fa; /* Un gris muy claro para el fondo general */
+    color: #343a40; /* Color de texto base oscuro */
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes en WebKit */
+    -moz-osx-font-smoothing: grayscale; /* Mejor renderizado de fuentes en Firefox */
+}
+
+/* Estilos para el loader global de la app y de ProtectedRoute */
+.app-loading-screen,
+.loading-fullscreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5; /* Similar al fondo de login */
+    font-family: "DM Sans", sans-serif;
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.spinner {
+    border: 4px solid rgba(156, 114, 208, 0.2); /* Morado claro */
+    border-left-color: #9c72d0; /* Morado oscuro */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Importar otros archivos CSS específicos (si no lo haces en cada JSX) */
+/* Si prefieres importar todo aquí en lugar de en cada archivo JSX: */
+/* @import url('./pages/Auth/LoginPage.css'); */
+/* @import url('./components/ui/Modal.css'); */
+/* @import url('./pages/Admin/GestionClientesPage.css'); */
+/* @import url('./pages/Admin/AdminDashboardPage.css'); */
+/* @import url('./pages/PlaceholderPage.css'); */
+
+/* Estilos de utilidad generales (si los necesitas) */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}

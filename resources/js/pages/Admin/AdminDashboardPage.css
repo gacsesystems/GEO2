@@ -1,0 +1,61 @@
+.adp-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.adp-main-title {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center; /* Opcional, si quieres el título centrado */
+}
+
+.adp-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.adp-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.adp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.adp-card-title {
+    font-family: "Coco Gothic", sans-serif; /* Titulo del card */
+    font-size: 1.5rem;
+    font-weight: bold; /* o EXTRABOLD */
+    color: #9c72d0; /* Morado */
+    margin-bottom: 10px;
+}
+
+.adp-card-description {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.adp-card-link {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fe971c; /* Naranja */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.adp-card-link:hover {
+    color: #e08008; /* Naranja más oscuro */
+    text-decoration: underline;
+}

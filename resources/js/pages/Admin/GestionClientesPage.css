@@ -1,0 +1,209 @@
+.gcp-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.gcp-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.gcp-main-title {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2.5rem; /* Similar al mockup */
+    font-weight: bold; /* o EXTRABOLD */
+    color: #333; /* Un color oscuro para el título principal */
+}
+
+.gcp-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.gcp-search-input {
+    padding: 12px 18px;
+    border: 1px solid #d1d5db; /* Gris claro */
+    border-radius: 25px; /* Completamente redondeado */
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    min-width: 250px;
+}
+.gcp-search-input:focus {
+    outline: none;
+    border-color: #9c72d0; /* Morado */
+    box-shadow: 0 0 0 2px rgba(156, 114, 208, 0.3);
+}
+
+.gcp-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px; /* Completamente redondeado */
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.gcp-button:hover {
+    transform: translateY(-1px);
+}
+
+.gcp-button-primary {
+    background-color: #9c72d0; /* Morado mockup "AGREGAR" */
+    color: white;
+}
+.gcp-button-primary:hover {
+    background-color: #8960b7;
+}
+.gcp-button .icon-svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Grid de Clientes */
+.gcp-clientes-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(300px, 1fr)
+    ); /* Responsive grid */
+    gap: 25px;
+}
+
+.gcp-no-clientes {
+    grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+    text-align: center;
+    padding: 40px 0;
+    font-family: "DM Sans", sans-serif;
+    color: #777;
+    font-size: 1.1rem;
+}
+
+.gcp-cliente-card {
+    background-color: #ffecde; /* Color de fondo claro naranja (activo por defecto) */
+    border-radius: 8px; /* Bordes redondeados como en mockup */
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.2s;
+    border-left: 5px solid #fe971c; /* Borde lateral naranja */
+}
+.gcp-cliente-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.gcp-cliente-card.inactive {
+    background-color: #d7daff; /* Color de fondo claro morado para inactivos */
+    border-left-color: #9c72d0; /* Borde lateral morado para inactivos */
+}
+
+.gcp-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Para alinear el logo si es más pequeño */
+    margin-bottom: 15px;
+}
+
+.gcp-card-title {
+    font-family: "Coco Gothic", sans-serif;
+    font-weight: bold; /* o EXTRABOLD */
+    font-size: 1.25rem; /* CENTRO DE ESPECIALIDADES... */
+    color: #fe971c; /* Naranja por defecto (activo) */
+    margin-bottom: 5px; /* Espacio si el título es largo */
+    line-height: 1.3;
+}
+.gcp-cliente-card.inactive .gcp-card-title {
+    color: #9c72d0; /* Morado para inactivos */
+}
+
+.gcp-card-logo {
+    width: 40px; /* Ajusta según tus logos */
+    height: 40px;
+    object-fit: contain;
+    border-radius: 4px; /* Opcional, si los logos tienen fondo */
+    margin-left: 10px;
+}
+
+.gcp-card-body {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px; /* Espacio antes de los botones de acción */
+}
+.gcp-card-body p {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+.gcp-card-body strong {
+    /* Para las etiquetas "Status:", "Nombre corto:", etc. */
+    color: #333;
+    font-weight: 600; /* Un poco más de peso para las etiquetas */
+}
+
+.status-active {
+    color: #059669; /* Un verde para activo */
+    font-weight: bold;
+}
+.status-inactive {
+    color: #dc2626; /* Un rojo para inactivo */
+    font-weight: bold;
+}
+
+.gcp-card-actions {
+    display: flex;
+    justify-content: flex-end; /* Botones a la derecha */
+    gap: 10px;
+    margin-top: auto; /* Empuja los botones al final si el contenido es variable */
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05); /* Separador sutil */
+}
+
+.gcp-action-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: #777; /* Color base de iconos */
+    transition: color 0.2s;
+}
+.gcp-action-button:hover {
+    color: #fe971c; /* Naranja al pasar el mouse (editar) */
+}
+.gcp-action-button:last-child:hover {
+    /* Para el botón de eliminar */
+    color: #ff443a; /* Rojo */
+}
+.gcp-action-button .icon-svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Mensajes de carga y error generales */
+.loading-message,
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.2rem;
+}
+.error-message {
+    color: #ff443a;
+}
+
+/* Inputs dentro del modal (heredan de Modal.css pero puedes especificarlos más si quieres) */
+/*#modal-root form input[type="text"],  Asumiendo que el modal se monta en #modal-root */
+/* #modal-root form input[type="number"],
+#modal-root form .form-checkbox-container { */
+/* Estilos ya definidos en Modal.css, puedes añadir overrides aquí si es necesario */
+/* } */

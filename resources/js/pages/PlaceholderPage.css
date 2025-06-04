@@ -1,0 +1,22 @@
+.placeholder-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Para que no ocupe toda la pantalla si hay header/footer */
+    text-align: center;
+    padding: 20px;
+    font-family: "DM Sans", sans-serif;
+}
+
+.placeholder-title {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.placeholder-text {
+    font-size: 1.1rem;
+    color: #777;
+}
