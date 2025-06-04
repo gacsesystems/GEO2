@@ -12,7 +12,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        return Cliente::all();
     }
 
     /**
@@ -28,7 +28,15 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'razon_social' => 'required|string|max:150',
+            'alias' => 'required|string|max:50|unique:clientes,alias',
+            'ruta_logo' => 'nullable|string|max:255',
+            'activo' => 'required|boolean',
+            'limite_encuestas' => 'required|integer',
+        ]);
+        $cliente = Cliente::create($request->all());
+        return response()->json($cliente, 201);
     }
 
     /**

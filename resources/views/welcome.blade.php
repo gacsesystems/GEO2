@@ -7,6 +7,6 @@
   <title>GeoEncuestas</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app" class="container"></div>
 </body>
 </html>
