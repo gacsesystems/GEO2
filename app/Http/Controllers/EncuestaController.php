@@ -29,7 +29,7 @@ class EncuestaController extends Controller
     public function __construct(private EncuestaService $service)
     {
         // 1) Protegemos todo con Sanctum
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth:sanctum')->except(['cuestionarioParaPaciente']);
 
         // 2) Middleware can: para verificar permisos antes de cada acción
         $this->middleware('can:viewAny,App\Models\Encuesta')->only('index', 'porCliente');
@@ -380,5 +380,116 @@ class EncuestaController extends Controller
         } catch (DecryptException $e) {
             return response()->json(['message' => 'Enlace de encuesta inválido o expirado.'], 404);
         }
+    }
+
+    /**
+     * GET /api/cuestionarios/{encuesta}/{paciente_id?}
+     * 
+     * Si la encuesta no es un cuestionario o no está activa → 404 o 403.
+     * Si llega paciente_id, intenta cargar datos en SQL Server via Paciente.
+     * Si no llega, regresa la estructura con todos los valores en blanco.
+     */
+    public function cuestionarioParaPaciente(int $encuesta, int $paciente_id = null): JsonResponse
+    {
+        // 1) Cargar la encuesta con secciones + preguntas:
+        $enc = Encuesta::with([
+            'seccionesEncuesta' => fn($q) => $q->orderBy('orden'),
+            'seccionesEncuesta.preguntas' => fn($q) => $q->orderBy('orden'),
+            'seccionesEncuesta.preguntas.tipoPregunta'
+        ])->findOrFail($encuesta);
+
+        // 2) Verificar que sea cuestionario
+        if (! $enc->es_cuestionario) {
+            return response()->json(['message' => 'No es un cuestionario válido.'], 400);
+        }
+
+        // 3) Verificar vigencia de fechas
+        if (! $enc->esta_activa) {
+            return response()->json(['message' => 'El cuestionario no está disponible en este momento.'], 403);
+        }
+
+        // 4) Obtener todos los mapeos de esta encuesta en un arreglo
+        // $mapeos = $enc->mapeosExternos->keyBy('pregunta_id');
+        // Ejemplo: [ 12 => PreguntaMapeoExterno{ entidad_externa_id:1, campo_externo_id:2 }, … ]
+
+        // Carga respuestas previas (si existen) desde GEO (MySQL)
+        $previas = null;
+        if ($paciente_id) {
+            // Verificar en GEO si ya hay respuestas_pregunta para este paciente y esta encuesta
+            $respCabecera = $enc->encuestasRespondidas()
+                ->where('paciente_id', $paciente_id)
+                ->latest('created_at')
+                ->first();
+            if ($respCabecera) {
+                // Extraer un array [id_pregunta => valor_unico o array de ids multiple]
+                $previas = $respCabecera->respuestasPregunta()
+                    ->with('opcionesSeleccionadas')
+                    ->get()
+                    ->mapWithKeys(function ($r) {
+                        if ($r->id_opcion_seleccionada_unica) {
+                            return [$r->id_pregunta => $r->id_opcion_seleccionada_unica];
+                        }
+                        if ($r->opcionesSeleccionadas->isNotEmpty()) {
+                            return [
+                                $r->id_pregunta => $r->opcionesSeleccionadas
+                                    ->pluck('id_opcion_pregunta')
+                                    ->toArray()
+                            ];
+                        }
+                        if ($r->valor_texto !== null) {
+                            return [$r->id_pregunta => $r->valor_texto];
+                        }
+                        if ($r->valor_numerico !== null) {
+                            return [$r->id_pregunta => $r->valor_numerico];
+                        }
+                        if ($r->valor_fecha !== null) {
+                            return [$r->id_pregunta => $r->valor_fecha];
+                        }
+                        if ($r->valor_booleano !== null) {
+                            return [$r->id_pregunta => (bool)$r->valor_booleano];
+                        }
+                        return [];
+                    })->toArray();
+            }
+        }
+
+        // 6) Armar la estructura de secciones + preguntas + valor_prefill
+        $estructura = [];
+        foreach ($enc->seccionesEncuesta as $seccion) {
+            $pregs = [];
+            foreach ($seccion->preguntas as $preg) {
+                $valor = null;
+                if ($previas && array_key_exists($preg->id_pregunta, $previas)) {
+                    $valor = $previas[$preg->id_pregunta];
+                }
+                $pregs[] = [
+                    'id_pregunta'    => $preg->id_pregunta,
+                    'texto'          => $preg->texto_pregunta,
+                    'tipo'           => $preg->tipoPregunta->nombre,
+                    'orden'          => $preg->orden,
+                    'es_obligatoria' => (bool)$preg->es_obligatoria,
+                    'valor_prefill'  => $valor,
+                    // Más propiedades (preguntaPadre, opciones dinámicas, etc.)
+                ];
+            }
+            $estructura[] = [
+                'id_seccion' => $seccion->id_seccion,
+                'nombre'     => $seccion->nombre,
+                'orden'      => $seccion->orden,
+                'preguntas'  => $pregs,
+            ];
+        }
+
+        // 7) Devolver JSON:
+        return response()->json([
+            'encuesta' => [
+                'id'           => $enc->id,
+                'nombre'       => $enc->nombre,
+                'descripcion'  => $enc->descripcion,
+                'fecha_inicio' => $enc->fecha_inicio?->toDateString(),
+                'fecha_fin'    => $enc->fecha_fin?->toDateString(),
+            ],
+            'secciones' => $estructura,
+        ], 200);
     }
 }

@@ -164,6 +164,9 @@ Route::prefix('encuestas')->group(function () {
     // 2) Sólo Admin/Cliente (auth:sanctum) puede ver el listado de respuestas
     Route::get('{encuesta}/respuestas', [RespuestasController::class, 'index'])->middleware('auth:sanctum')->name('respuestas.index');
 
+    // 3) Para Admin/Cliente → obtener detalle de una encuesta_respondida:
+    Route::get('{encuesta}/respuestas/{respondida}', [RespuestasController::class, 'showDetalle'])->middleware('auth:sanctum')->name('respuestas.showDetalle');
+
     // —– (Opcional) Reporte público/privado extra que no HAYA quedado en el grupo “reportes” de arriba —–
     // Ejemplo de endpoint extra que devuelva JSON/CSV sin usar el prefijo anterior:
     // Route::get(
@@ -182,3 +185,8 @@ Route::prefix('encuestas')->group(function () {
 // ============================================================================
 
 Route::get('cuestionarios/{encuesta}/{paciente_id?}', [EncuestaController::class, 'cuestionarioParaPaciente'])->name('cuestionarios.paraPaciente');
+
+// ————————————————————————————————————————————————————————————————————
+// 4) Endpoints públicos de “Respuestas” (para mostrar una respuesta específica)
+// ————————————————————————————————————————————————————————————————————
+Route::get('/api/encuestas/{encuesta}/respuestas/{respondida}', [RespuestasController::class, 'show'])->name('respuestas.show');

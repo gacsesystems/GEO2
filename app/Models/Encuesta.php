@@ -73,7 +73,7 @@ class Encuesta extends Model
     /**
      *  Atributo “computed” para saber si la encuesta/cuestionario está en su periodo de vigencia.
      */
-    public function getEstaActivaAttribute(): bool
+    public function esta_activa(): bool
     {
         if (! $this->es_cuestionario) return true; // Si no es cuestionario, la consideramos “siempre activa” (o puedes cambiar la lógica).
 

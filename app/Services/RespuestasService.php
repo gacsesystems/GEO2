@@ -12,6 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+// use App\Models\Paciente;
+use App\Models\PreguntaMapeoExterno;
+
 use InvalidArgumentException;
 
 class RespuestasService
@@ -33,11 +36,24 @@ class RespuestasService
       throw new InvalidArgumentException('Encuesta no válida o no disponible.');
     }
 
-    return DB::transaction(function () use ($encuesta, $datosPeticion, $metadatos) {
+    if (! $encuesta->cliente?->activo) {
+      throw new InvalidArgumentException('El cliente de esta encuesta no está activo.');
+    }
+
+    // 1) Si es cuestionario y no está activo, abortar:
+    if ($encuesta->es_cuestionario && ! $encuesta->esta_activa) {
+      throw new InvalidArgumentException('El cuestionario no está en su periodo de vigencia.');
+    }
+
+    $pacienteId = $datosPeticion['paciente_id'] ?? null; // 2) Obtener paciente_id (si viene) o nulo
+
+    return DB::transaction(function () use ($encuesta, $datosPeticion, $metadatos, $pacienteId) {
       // 1) Crear encabezado en encuestas_respondidas
       $encResp = $encuesta->encuestasRespondidas()->create([
         'correo_respuesta'         => $datosPeticion['correo_respuesta'] ?? null,
         'id_usuario_respuesta'     => Auth::check() ? Auth::id() : null,
+        'id_encuesta_respondida' => null, // se autoincrementa
+        'id_paciente'            => $pacienteId,      // Si existe
         'fecha_inicio_respuesta'   => isset($datosPeticion['fecha_inicio_respuesta'])
           ? Carbon::parse($datosPeticion['fecha_inicio_respuesta'])
           : now(),
@@ -49,8 +65,7 @@ class RespuestasService
 
       // 2) Iterar sobre cada respuesta enviada
       foreach ($datosPeticion['respuestas'] as $respData) {
-        $pregunta = Pregunta::with('tipoPregunta', 'seccionEncuesta')
-          ->find($respData['id_pregunta']);
+        $pregunta = Pregunta::with('tipoPregunta', 'seccionEncuesta')->find($respData['id_pregunta']);
 
         if (! $pregunta || $pregunta->seccionEncuesta->id_encuesta !== $encuesta->id_encuesta) {
           // Si la pregunta no pertenece a esta encuesta, saltamos
@@ -61,18 +76,12 @@ class RespuestasService
         $idsOpcionesMultiple = $respData['ids_opciones_seleccionadas'] ?? [];
 
         // Si la pregunta es obligatoria y no se envió nada, la omitimos.
-        if (
-          $pregunta->es_obligatoria
-          && is_null($valorEnviado)
-          && empty($idsOpcionesMultiple)
-        ) {
+        if ($pregunta->es_obligatoria && is_null($valorEnviado) && empty($idsOpcionesMultiple)) {
           continue;
         }
 
         // Base de datos de campos a insertar
-        $camposDetalle = [
-          'id_pregunta' => $pregunta->id_pregunta
-        ];
+        $camposDetalle = ['id_pregunta' => $pregunta->id_pregunta];
 
         $nombreTipo = $pregunta->tipoPregunta->nombre;
 
@@ -102,8 +111,7 @@ class RespuestasService
 
           case TipoPregunta::NOMBRE_TEXTO_CORTO:
           case TipoPregunta::NOMBRE_TEXTO_LARGO:
-            $camposDetalle['valor_texto'] =
-              is_string($valorEnviado) ? substr($valorEnviado, 0, 4000) : null;
+            $camposDetalle['valor_texto'] = is_string($valorEnviado) ? substr($valorEnviado, 0, 4000) : null;
             break;
 
           case TipoPregunta::NOMBRE_OPCION_UNICA:
@@ -120,17 +128,21 @@ class RespuestasService
 
           case TipoPregunta::NOMBRE_FECHA:
             try {
-              $camposDetalle['valor_fecha'] =
-                $valorEnviado ? Carbon::parse($valorEnviado)->toDateString() : null;
+              $f = $valorEnviado ? Carbon::parse($valorEnviado)->toDateString() : null;
             } catch (\Exception) {
-              $camposDetalle['valor_fecha'] = null;
+              $f = null;
             }
+            // Validar rango de fecha si pregunta->fecha_minima / fecha_maxima
+            if ($f && (($pregunta->fecha_minima && $f < $pregunta->fecha_minima) || ($pregunta->fecha_maxima && $f > $pregunta->fecha_maxima))) {
+              throw new InvalidArgumentException("La fecha para la pregunta '{$pregunta->texto_pregunta}' debe estar entre {$pregunta->fecha_minima} y {$pregunta->fecha_maxima}.");
+            }
+
+            $camposDetalle['valor_fecha'] = $f;
             break;
 
           case TipoPregunta::NOMBRE_HORA:
             try {
-              $camposDetalle['valor_fecha'] =
-                $valorEnviado ? Carbon::parse($valorEnviado)->toTimeString() : null;
+              $camposDetalle['valor_fecha'] = $valorEnviado ? Carbon::parse($valorEnviado)->toTimeString() : null;
             } catch (\Exception) {
               $camposDetalle['valor_fecha'] = null;
             }
@@ -150,13 +162,13 @@ class RespuestasService
 
           case TipoPregunta::NOMBRE_SELECCION_MULTIPLE:
             // No se inserta valor principal; manejamos asociación más adelante.
+            // Dejamos para after: sincronización de pivot
             break;
 
           default:
             // Para cualquier otro tipo no contemplado, no guardamos campos extra.
             break;
         }
-
         // 3) Si hay algún valor para insertar o es selección múltiple
         if (
           count(array_filter($camposDetalle, fn($v, $k) => $k !== 'id_pregunta' && ! is_null($v), ARRAY_FILTER_USE_BOTH)) > 0
@@ -182,6 +194,31 @@ class RespuestasService
   }
 
   /**
+   * Extrae el valor adecuado de la respuesta según el tipo de pregunta.
+   */
+  protected function extraerValorFromRespuesta(array $respData)
+  {
+    if (! empty($respData['valor_texto'])) {
+      return $respData['valor_texto'];
+    }
+    if (! empty($respData['valor_numerico'])) {
+      return $respData['valor_numerico'];
+    }
+    if (! empty($respData['id_opcion_seleccionada_unica'])) {
+      $op = OpcionPregunta::find($respData['id_opcion_seleccionada_unica']);
+      return $op?->texto_opcion;
+    }
+    if (! empty($respData['valor_fecha'])) {
+      return $respData['valor_fecha'];
+    }
+    if (! empty($respData['valor_booleano'])) {
+      return (bool)$respData['valor_booleano'];
+    }
+    // Notar que para selección múltiple se guarda en pivot; rara vez mapeamos a tabla externa.
+    return null;
+  }
+
+  /**
    * Obtener todas las respuestas (detalle) de una encuesta, sólo para Admin/Cliente.
    *
    * @param  int  $idEncuesta
@@ -189,10 +226,81 @@ class RespuestasService
    */
   public function obtenerPorEncuesta(int $idEncuesta): SupportCollection
   {
-    return RespuestaPregunta::whereHas(
-      'pregunta',
-      fn($q) =>
-      $q->where('id_encuesta', $idEncuesta)
-    )->get();
+    return RespuestaPregunta::whereHas('pregunta', fn($q) => $q->where('id_encuesta', $idEncuesta))->get();
+  }
+
+  /**
+   * Devuelve el detalle de las respuestas de una cabecera (encuesta_respondida_id)
+   * con sus pivotes de selección múltiple.
+   *
+   * @param int $respondidaId
+   * @return \Illuminate\Database\Eloquent\Collection<RespuestaPregunta>
+   */
+  public function obtenerDetalleRespuestas(int $respondidaId)
+  {
+    return RespuestaPregunta::with('opcionesSeleccionadas')->where('id_encuesta_respondida', $respondidaId)->get();
+  }
+
+  /**
+   * Devuelve el detalle de las respuestas de una cabecera (encuesta_respondida_id),
+   * con sus pivotes de selección múltiple, y añade entidad/campo para Delphi.
+   *
+   * @param int $respondidaId
+   * @return array
+   */
+  public function obtenerDetalleRespuestasConMapeo(int $respondidaId): array
+  {
+    // 1) Obtenemos todas las respuestas_pregunta con su pivot de opciones
+    $respuestas = RespuestaPregunta::with('opcionesSeleccionadas')
+      ->where('id_encuesta_respondida', $respondidaId)
+      ->get();
+
+    // 2) Para no hacer 1 query por cada respuesta, precargamos todos los mapeos de la encuesta:
+    //    Primero buscamos: ¿a qué encuesta pertenece esta cabecera?
+    $encResp = EncuestaRespondida::find($respondidaId);
+    $encuestaId = $encResp->id_encuesta;
+
+    // 3) Precargamos en memoria los mapeos “pregunta_id → (entidad, campo)”
+    $mapeos = PreguntaMapeoExterno::where('encuesta_id', $encuestaId)
+      ->get()
+      ->keyBy('pregunta_id');
+    // ahora $mapeos[pregunta_id] = objeto con entidad_externa y campo_externo
+
+    // 4) Armamos el array final:
+    $detalle = [];
+    foreach ($respuestas as $resp) {
+      $pregId = $resp->id_pregunta;
+
+      // “opcionesSeleccionadas” viene en la relación
+      $idsOpciones = $resp->opcionesSeleccionadas->pluck('id_opcion_pregunta')->all();
+
+      // Sacamos el mapeo si existe:
+      $entidad = null;
+      $campo   = null;
+      if (isset($mapeos[$pregId])) {
+        $entidad = $mapeos[$pregId]->entidad_externa;
+        $campo   = $mapeos[$pregId]->campo_externo;
+      }
+
+      // Extraemos el valor efectivo que enviaron (texto / numérico / fecha / booleano / opción única):
+      $valor = $this->extraerValorFromRespuesta($resp->toArray());
+      // (este método ya lo tenías en tu Service)
+
+      $detalle[] = [
+        'id_pregunta'                  => $pregId,
+        'valor_texto'                  => $resp->valor_texto,
+        'valor_numerico'               => $resp->valor_numerico,
+        'valor_fecha'                  => $resp->valor_fecha,
+        'valor_booleano'               => (bool) $resp->valor_booleano,
+        'id_opcion_seleccionada_unica' => $resp->id_opcion_seleccionada_unica,
+        'opciones_seleccionadas_ids'   => $idsOpciones,
+        // --- AÑADIMOS LOS CAMPOS DE MAPPING PARA DELPHI ---
+        'entidad_externa'              => $entidad, // ej: "HPREG05"
+        'campo_externo'                => $campo,   // ej: "DESC_PAC"
+        'valor_para_externo'           => $valor,   // ejemplo: "María Pérez"
+      ];
+    }
+
+    return $detalle;
   }
 }

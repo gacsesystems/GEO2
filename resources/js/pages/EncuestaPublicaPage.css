@@ -1,0 +1,171 @@
+.encuesta-publica-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    font-family: "DM Sans", sans-serif;
+}
+.encuesta-publica-container.encuesta-agradecimiento {
+    text-align: center;
+    padding: 50px 30px;
+}
+.encuesta-agradecimiento .nav-icon {
+    /* Asumiendo que CheckCircleIcon usa nav-icon */
+    width: 80px;
+    height: 80px;
+    color: #8cc04e; /* Verde */
+    margin-bottom: 20px;
+}
+.encuesta-agradecimiento h2 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+.encuesta-agradecimiento p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.encuesta-publica-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+.encuesta-publica-header h1 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2.2rem;
+    color: #9c72d0; /* Morado */
+    margin-bottom: 8px;
+}
+.encuesta-publica-descripcion {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.encuesta-seccion {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+}
+.encuesta-seccion h2 {
+    font-family: "Coco Gothic", sans-serif; /* Regular o Bold */
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+.seccion-descripcion {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.pregunta-container {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 6px;
+}
+.pregunta-label {
+    display: block;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+.pregunta-label .obligatorio {
+    color: #ff443a; /* Rojo */
+    margin-left: 4px;
+    font-weight: bold;
+}
+.texto-ayuda {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Estilos para inputs genéricos dentro del form público */
+.encuesta-publica-form input[type="text"],
+.encuesta-publica-form input[type="number"],
+.encuesta-publica-form input[type="date"],
+.encuesta-publica-form input[type="time"],
+.encuesta-publica-form textarea,
+.encuesta-publica-form select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+.encuesta-publica-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+.encuesta-publica-form input:focus,
+.encuesta-publica-form textarea:focus,
+.encuesta-publica-form select:focus {
+    outline: none;
+    border-color: #9c72d0; /* Morado */
+    box-shadow: 0 0 0 2px rgba(156, 114, 208, 0.2);
+}
+
+.radio-group label,
+.checkbox-group label {
+    display: block; /* O inline-block con margen */
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: #444;
+}
+.radio-group input[type="radio"],
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #9c72d0; /* Morado */
+    vertical-align: middle;
+}
+
+.btn-submit-encuesta {
+    display: block;
+    width: auto; /* O '100%' si quieres full width */
+    min-width: 200px;
+    margin: 30px auto 10px auto;
+    padding: 12px 30px;
+    background-color: #8cc04e; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-submit-encuesta:hover:not(:disabled) {
+    background-color: #7ab33a;
+}
+.btn-submit-encuesta:disabled {
+    background-color: #b8d898;
+    cursor: not-allowed;
+}
+
+.error-message.form-error {
+    /* Ya definido en otros CSS, asegúrate que esté disponible */
+    /* ... */
+    text-align: center;
+}

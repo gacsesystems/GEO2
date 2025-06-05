@@ -1,0 +1,123 @@
+/* Reutiliza .gestion-page-container, .page-header de otros CSS si son globales */
+
+.reportes-encuesta-container .page-header {
+    align-items: flex-start; /* Para que los botones de exportar se alineen con el título si este es largo */
+}
+.reportes-encuesta-container .page-header h1 {
+    margin-bottom: 5px;
+}
+.reportes-encuesta-container .descripcion-encuesta-principal {
+    font-size: var(--fs-normal);
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-xs);
+}
+.reportes-acciones-header {
+    display: flex;
+    flex-direction: column; /* O row si prefieres */
+    gap: var(--spacing-sm);
+    align-items: flex-end; /* Alinear a la derecha */
+}
+/* .reportes-acciones-header .btn-accion-secundario { */
+/* Reutiliza de DiseñadorEncuestaPage.css */
+/* ... */
+/* } */
+
+.reportes-contenido {
+    margin-top: var(--spacing-lg);
+}
+
+.reporte-pregunta-card {
+    background-color: var(--color-background-card);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.reporte-pregunta-card h3 {
+    font-family: var(--font-header);
+    font-size: var(--fs-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.tipo-pregunta-badge {
+    display: inline-block;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--fs-small);
+    margin-bottom: var(--spacing-md);
+}
+
+.opciones-resumen-lista {
+    list-style: none;
+    padding-left: 0;
+}
+.opciones-resumen-lista li {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    gap: var(--spacing-sm);
+    font-size: var(--fs-small);
+}
+.opciones-resumen-lista .opcion-texto {
+    flex-basis: 200px; /* Ajusta según necesites */
+    min-width: 150px;
+    word-break: break-word;
+    color: var(--color-text-secondary);
+}
+.barra-progreso-contenedor {
+    flex-grow: 1;
+    background-color: #e9ecef; /* Fondo de la barra */
+    border-radius: var(--border-radius-sm);
+    height: 20px; /* Altura de la barra */
+    overflow: hidden; /* Para que la barra interna no se salga */
+    min-width: 100px;
+}
+.barra-progreso {
+    background-color: var(
+        --color-primary-medium
+    ); /* Color de la barra (morado) */
+    height: 100%;
+    color: white;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5px;
+    transition: width 0.5s ease-in-out;
+    white-space: nowrap;
+}
+.opciones-resumen-lista .opcion-conteo {
+    font-weight: 500;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+.respuestas-abiertas-muestra {
+    margin-top: var(--spacing-sm);
+}
+.respuestas-abiertas-muestra h4 {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+.respuestas-abiertas-muestra ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: var(--fs-small);
+}
+.respuesta-abierta-item {
+    padding: 3px 0;
+    color: #444;
+    border-bottom: 1px dotted #eee;
+}
+.respuesta-abierta-item:last-child {
+    border-bottom: none;
+}
+.text-muted {
+    color: var(--color-text-muted);
+    font-style: italic;
+}

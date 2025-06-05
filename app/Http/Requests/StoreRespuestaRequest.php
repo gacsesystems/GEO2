@@ -19,12 +19,23 @@ class StoreRespuestaRequest extends FormRequest
   {
     return [
       'id_encuesta'               => ['required', 'integer', 'exists:encuestas,id_encuesta'],
+      'paciente_id'               => ['nullable', 'integer'],
       'correo_respuesta'          => ['nullable', 'email', 'max:255'],
       'fecha_inicio_respuesta'    => ['nullable', 'date_format:Y-m-d H:i:s'],
       'fecha_fin_respuesta'       => ['nullable', 'date_format:Y-m-d H:i:s'],
       'respuestas'                => ['required', 'array', 'min:1'],
-      'respuestas.*.id_pregunta'          => ['required', 'integer', 'exists:preguntas,id_pregunta'],
+      'respuestas.*.id_pregunta'          => ['required', 'integer', Rule::exists('preguntas', 'id_pregunta'),],
       'respuestas.*.valor_respuesta'      => ['nullable'], // Permitimos string, num, fecha, booleano según tipo
+      'respuestas.*.valor_texto'  => 'sometimes|nullable|string|max:4000',
+      'respuestas.*.valor_numerico' => 'sometimes|nullable|numeric',
+      'respuestas.*.valor_fecha'    => 'sometimes|nullable|date',
+      'respuestas.*.valor_booleano' => 'sometimes|nullable|boolean',
+      'respuestas.*.id_opcion_seleccionada_unica' => [
+        'sometimes',
+        'nullable',
+        'integer',
+        Rule::exists('opciones_pregunta', 'id_opcion_pregunta'),
+      ],
       'respuestas.*.ids_opciones_seleccionadas' => ['nullable', 'array'],
       'respuestas.*.ids_opciones_seleccionadas.*' => [
         'integer',
