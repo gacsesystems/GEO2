@@ -17,6 +17,7 @@ import GestionClientesPage from "./pages/Admin/GestionClientesPage";
 // import NotFoundPage from "./pages/NotFoundPage"; // Crear después
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PlaceholderPage from "./pages/PlaceholderPage"; // Para páginas no creadas
+import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
 
 function Menu() {
     const { isAuthenticated, user, isLoading } = useAuth();
@@ -122,6 +123,10 @@ function Menu() {
                     }
                 />
             </Route>
+            <Route
+                path="/verifica-tu-correo"
+                element={<VerificaCorreoPage />}
+            />
             <Route
                 path="*"
                 element={

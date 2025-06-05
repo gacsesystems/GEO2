@@ -21,9 +21,9 @@ const LoginPage = () => {
             const loggedInUser = await login(email, password);
             if (from) {
                 navigate(from, { replace: true });
-            } else if (loggedInUser?.role === "Administrador") {
+            } else if (loggedInUser?.rol === "Administrador") {
                 navigate("/admin/dashboard", { replace: true });
-            } else if (loggedInUser?.role === "Cliente") {
+            } else if (loggedInUser?.rol === "Cliente") {
                 navigate("/cliente/dashboard", { replace: true });
             } else {
                 navigate("/", { replace: true });

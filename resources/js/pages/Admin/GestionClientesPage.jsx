@@ -71,15 +71,20 @@ function GestionClientesPage() {
         setEditingCliente(null);
     };
 
-    // const handleOpenModalForEdit = (cliente) => {
-    //     resetForm();
-    //     setEditingCliente(cliente);
-    //     setRazonSocial(cliente.razon_social);
-    //     setAlias(cliente.alias || "");
-    //     setLimiteEncuestas(cliente.limite_encuestas.toString());
-    //     setActivo(cliente.activo);
-    //     setIsModalOpen(true);
-    // };
+    const handleOpenModalForCreate = () => {
+        resetForm();
+        setIsModalOpen(true);
+    };
+
+    const handleOpenModalForEdit = (cliente) => {
+        resetForm();
+        setEditingCliente(cliente);
+        setRazonSocial(cliente.razon_social);
+        setAlias(cliente.alias || "");
+        setLimiteEncuestas(cliente.limite_encuestas.toString());
+        setActivo(cliente.activo);
+        setIsModalOpen(true);
+    };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -118,17 +123,21 @@ function GestionClientesPage() {
         }
     };
 
-    // const handleDeleteCliente = async (clienteId) => {
-    //     if (window.confirm("¿Estás seguro de que quieres eliminar este cliente?")) {
-    //         try {
-    //             await axios.delete(`/api/clientes/${clienteId}`);
-    //             setClientes(clientes.filter(c => c.id_cliente !== clienteId));
-    //             // Mostrar mensaje de éxito
-    //         } catch (error) {
-    //             // Mostrar mensaje de error
-    //         }
-    //     }
-    // };
+    const handleDeleteCliente = async (clienteId) => {
+        if (
+            window.confirm(
+                "¿Estás seguro de que quieres eliminar este cliente?"
+            )
+        ) {
+            try {
+                await axios.delete(`/api/clientes/${clienteId}`);
+                setClientes(clientes.filter((c) => c.id_cliente !== clienteId));
+                // Mostrar mensaje de éxito
+            } catch (error) {
+                // Mostrar mensaje de error
+            }
+        }
+    };
 
     if (isLoading)
         return <p className="loading-message">Cargando clientes...</p>;
@@ -291,9 +300,7 @@ function GestionClientesPage() {
                         </div>
                         <div className="gcp-card-actions">
                             <button
-                                onClick={() =>
-                                    alert("Editar: " + cliente.razon_social)
-                                }
+                                onClick={() => handleOpenModalForEdit(cliente)}
                                 className="gcp-action-button"
                             >
                                 {" "}
@@ -302,7 +309,7 @@ function GestionClientesPage() {
                             </button>
                             <button
                                 onClick={() =>
-                                    alert("Eliminar: " + cliente.razon_social)
+                                    handleDeleteCliente(cliente.id_cliente)
                                 }
                                 className="gcp-action-button"
                             >

@@ -2,21 +2,35 @@ import axios from "axios";
 
 export const getCurrentUser = async () => {
     try {
-        const response = await axios.get("/api/user");
+        const response = await axios.get("/api/me");
         return response.data;
     } catch (error) {
-        if (error.response && error.response.status === 401) return null;
-
+        if (error.response) {
+            if (error.response.status === 401) {
+                // No autenticado
+                return { error: "unauthenticated" };
+            }
+            if (error.response.status === 403) {
+                // No verificado
+                return { error: "unverified" };
+            }
+        }
+        // Otro error
         console.error("Error al obtener el usuario actual:", error);
-        throw error;
+        return { error: "unknown" };
     }
 };
 
 export const login = async (email, password) => {
     try {
-        // Ejemplo: await axios.get('/sanctum/csrf-cookie');
+        await axios.get("/sanctum/csrf-cookie"); // a) Obtener cookie XSRF
+
         const response = await axios.post("/api/login", { email, password });
-        // Si usas tokens JWT, guárdalo: localStorage.setItem('authToken', response.data.token);
+        localStorage.setItem("authToken", response.data.token);
+        // c) Guardar token para usarlo en futuras solicitudes
+        axios.defaults.headers.common[
+            "Authorization"
+        ] = `Bearer ${response.data.token}`;
         return response.data;
     } catch (error) {
         console.error("Error al iniciar sesión:", error);

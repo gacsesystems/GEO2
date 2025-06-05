@@ -15,23 +15,24 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkLoggedIn = async () => {
             setIsLoading(true);
-            try {
-                const userData = await getCurrentUser(); // Verifica si el usuario está autenticado
+            const result = await getCurrentUser();
 
-                if (userData) {
-                    setUser(userData);
-                    setIsAuthenticated(true);
-                } else {
-                    setUser(null);
-                    setIsAuthenticated(false);
-                }
-            } catch (error) {
-                console.error("Error al verificar autenticación:", error);
+            if (result && !result.error) {
+                setUser(result);
+                setIsAuthenticated(true);
+            } else if (result.error === "unauthenticated") {
                 setUser(null);
                 setIsAuthenticated(false);
-            } finally {
-                setIsLoading(false);
+            } else if (result.error === "unverified") {
+                setUser(null);
+                setIsAuthenticated(false);
+                // Aquí puedes mostrar un mensaje o redirigir a una página especial
+                window.location.href = "/verifica-tu-correo";
+            } else {
+                setUser(null);
+                setIsAuthenticated(false);
             }
+            setIsLoading(false);
         };
         checkLoggedIn();
     }, []);

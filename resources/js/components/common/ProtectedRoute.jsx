@@ -21,15 +21,15 @@ export const ProtectedRoute = ({ rolesPermitidos }) => {
     if (
         rolesPermitidos &&
         rolesPermitidos.length > 0 &&
-        !rolesPermitidos.includes(user?.role)
+        !rolesPermitidos.includes(user?.rol)
     ) {
         console.warn(
             `Acceso denegado para el usuario ${user?.email} con rol ${
-                user?.role
+                user?.rol
             }. Roles permitidos: ${rolesPermitidos.join(", ")}`
         );
         const fallbackDashboard =
-            user?.role === "Administrador"
+            user?.rol === "Administrador"
                 ? "/admin/dashboard"
                 : "/cliente/dashboard";
         return (

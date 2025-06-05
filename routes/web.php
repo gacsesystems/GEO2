@@ -15,8 +15,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 */
 
 Route::get('/{any}', function () {
-    return view('welcome'); // O el nombre de tu vista principal de React
-})->where('any', '.*');
+    return view('welcome'); // o tu vista principal
+})->where('any', '^(?!api).*$');
 
 /*
 |--------------------------------------------------------------------------
