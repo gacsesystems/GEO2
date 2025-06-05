@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Auditable;
 
+/**
+ * @mixin IdeHelperCliente
+ */
 class Cliente extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Auditable;
 
-    protected $primaryKey = 'id_cliente';
+    protected $primaryKey = 'id_cliente'; // Especificar la clave primaria
 
     protected $fillable = [
         'razon_social',
@@ -30,10 +34,10 @@ class Cliente extends Model
         'limite_encuestas' => 'integer'
     ];
 
-    // public function encuestas()
-    // {
-    //     return $this->hasMany(Encuesta::class, 'id_cliente', 'id_cliente');
-    // }
+    public function encuestas()
+    {
+        return $this->hasMany(Encuesta::class, 'id_cliente', 'id_cliente');
+    }
 
     public function usuarios()
     {
