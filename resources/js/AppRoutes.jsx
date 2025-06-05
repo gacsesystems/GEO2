@@ -18,6 +18,8 @@ import GestionClientesPage from "./pages/Admin/GestionClientesPage";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PlaceholderPage from "./pages/PlaceholderPage"; // Para páginas no creadas
 import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
+import AdminLayout from "./components/layout/AdminLayout";
+import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
 
 function AppRoutes() {
     const { isAuthenticated, user, isLoading } = useAuth();
@@ -97,29 +99,29 @@ function AppRoutes() {
 
             {/* --- RUTAS DE ADMINISTRADOR --- */}
             {/* Estas rutas requieren autenticación, rol de Administrador Y correo verificado */}
-            <Route
-                element={
-                    <ProtectedRoute
-                        rolesPermitidos={["Administrador"]}
-                        requireVerifiedEmail={true} // <--- Protección de correo verificado
-                    />
-                }
-            >
+            <Route element={<AdminLayout />}>
                 <Route
-                    path="/admin/dashboard"
-                    element={<AdminDashboardPage />}
-                />
-                <Route
-                    path="/admin/clientes"
-                    element={<GestionClientesPage />}
-                />
-                <Route
-                    path="/admin/usuarios"
                     element={
-                        <PlaceholderPage pageName="Gestión de Usuarios (Admin)" />
+                        <ProtectedRoute
+                            rolesPermitidos={["Administrador"]}
+                            requireVerifiedEmail={true} // <--- Protección de correo verificado
+                        />
                     }
-                />
-                {/* Añade más rutas de admin aquí dentro si todas requieren la misma protección */}
+                >
+                    <Route
+                        path="/admin/dashboard"
+                        element={<AdminDashboardPage />}
+                    />
+                    <Route
+                        path="/admin/clientes"
+                        element={<GestionClientesPage />}
+                    />
+                    <Route
+                        path="/admin/usuarios"
+                        element={<GestionUsuariosPage />}
+                    />
+                    {/* Añade más rutas de admin aquí dentro si todas requieren la misma protección */}
+                </Route>
             </Route>
 
             {/* --- RUTAS DE CLIENTE --- */}

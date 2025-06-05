@@ -1,0 +1,48 @@
+/* Usaremos las clases de GestionClientesPage.css para mantener consistencia.
+   Asegúrate de que GestionClientesPage.css (o un CSS global equivalente)
+   esté importado en tu app.css o en algún lugar accesible.
+
+   Si 'gcp-container', 'gcp-header', etc., están definidos globalmente o en un
+   archivo importado, no necesitas redefinirlos aquí.
+
+   Si quieres que GestionUsuariosPage tenga un estilo ligeramente diferente,
+   puedes crear clases nuevas aquí, por ejemplo, 'gup-container', 'gup-header', etc.
+   o sobreescribir las clases 'gcp-*' SOLO para esta página usando un selector de contexto,
+   aunque es mejor usar clases diferentes para evitar especificidad no deseada.
+
+   Por ahora, asumiremos que quieres reutilizar los estilos de .gcp-container, etc.
+   Si es así, no necesitas mucho en este archivo específico, a menos que tengas
+   elementos únicos en la página de Gestión de Usuarios que no estén en Clientes.
+*/
+
+/* Ejemplo: Si tuvieras un título específico o un subtítulo en esta página */
+/*
+.gup-page-subtitle {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1.1rem;
+    color: #718096; // Tailwind gray-600
+    margin-bottom: 20px;
+    margin-top: -15px; // Para acercarlo al título principal
+}
+*/
+
+/* Si el CardTable en GestionUsuariosPage necesita algún ajuste de margen específico */
+/*
+.gup-container .card-table-wrapper {
+    margin-top: 20px;
+}
+*/
+
+/* No se necesitan muchos estilos aquí si reutilizas las clases de .gcp-*
+   y los componentes (Modal, CardTable, UsuarioForm) ya tienen sus propios CSS.
+   El principal objetivo es que la página de Gestión de Usuarios tenga un layout
+   y cabecera consistentes con la de Gestión de Clientes.
+*/
+
+/* Si quieres un identificador para esta página específica, puedes usarlo.
+   Por ejemplo, en el div raíz de GestionUsuariosPage.jsx:
+   <div className="gcp-container gestion-usuarios-page-wrapper">
+*/
+/* .gestion-usuarios-page-wrapper .gcp-main-title { */
+/* Estilos específicos para el título si fuera necesario */
+/* } */

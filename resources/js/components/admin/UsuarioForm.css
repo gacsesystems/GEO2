@@ -1,0 +1,86 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px; /* Espacio entre grupos de formulario */
+    gap: 6px; /* Espacio entre la etiqueta y el input */
+}
+
+.form-group label {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500; /* O 'bold' si prefieres más énfasis */
+    color: #4a5568; /* Gris oscuro para las etiquetas */
+    font-size: 0.9rem;
+    margin-bottom: 2px; /* Pequeño espacio adicional si no usas gap */
+}
+
+/* Estilos para inputs y selects (podrían ser globales para formularios) */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e0; /* Borde gris claro (Tailwind gray-300) */
+    border-radius: 8px; /* Bordes redondeados */
+    box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    color: #2d3748; /* Texto de input oscuro (Tailwind gray-800) */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #9c72d0; /* Morado al hacer focus (tu color principal) */
+    box-shadow: 0 0 0 3px rgba(156, 114, 208, 0.25); /* Sombra de focus morada, sutil */
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+    background-color: #f7fafc; /* Fondo ligeramente gris (Tailwind gray-100) */
+    color: #a0aec0; /* Texto más claro (Tailwind gray-500) */
+    cursor: not-allowed;
+}
+
+/* Estilos para mensajes de error dentro del formulario */
+.form-error {
+    /* Esta clase se usa en el <p> que muestra formErrorLocal o apiError */
+    background-color: #fff5f5; /* Rojo muy claro (Tailwind red-100) */
+    color: #c53030; /* Texto rojo oscuro (Tailwind red-700) */
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #fc8181; /* Borde rojo (Tailwind red-400) */
+    font-size: 0.9rem;
+    text-align: left; /* O center, según prefieras */
+    margin-bottom: 15px; /* Espacio si hay un error */
+    font-family: "DM Sans", sans-serif;
+}
+
+/* Grupo de Checkbox específico */
+.form-group.checkbox-group {
+    flex-direction: row; /* Alinea el input y la etiqueta horizontalmente */
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px; /* Pequeño ajuste si es necesario */
+    margin-bottom: 18px; /* Mantener consistencia con otros .form-group */
+}
+
+.form-group.checkbox-group input[type="checkbox"] {
+    width: 18px; /* Tamaño del checkbox */
+    height: 18px;
+    accent-color: #9c72d0; /* Color del check (morado) para navegadores compatibles */
+    /* Para mayor compatibilidad, podrías necesitar estilizar un label que oculte el checkbox real */
+    cursor: pointer;
+}
+
+.form-group.checkbox-group .checkbox-label {
+    /* La etiqueta al lado del checkbox */
+    font-weight: normal; /* Para que no sea igual que las etiquetas principales */
+    color: #4a5568;
+    font-size: 0.95rem;
+    margin-bottom: 0; /* Resetear margen si lo hereda de .form-group label */
+    cursor: pointer;
+}

@@ -1,0 +1,26 @@
+.admin-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.admin-layout-main {
+    display: flex;
+    flex-grow: 1;
+    /* padding-top: 70px; Si tu Navbar no es sticky y quieres que el contenido empiece después */
+}
+
+/* Si tienes un AdminSidebar */
+/* .admin-sidebar {
+    width: 250px;
+    background-color: #f8f9fa; // Un color base para el sidebar
+    padding: 20px;
+    // ... más estilos
+} */
+
+.admin-layout-content {
+    flex-grow: 1;
+    padding: 20px; /* Espaciado para el contenido principal */
+    background-color: #f4f6f8; /* Fondo general para el área de contenido, similar a tu VerificaCorreoPage */
+    /* Si Navbar es sticky, el padding superior para el contenido ya está en app.css o en el componente App */
+}

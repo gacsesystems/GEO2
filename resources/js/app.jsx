@@ -20,7 +20,7 @@ function App() {
         <div className="app-container">
             {" "}
             {/* Un div contenedor general opcional */}
-            <Navbar />
+            {/* <Navbar /> */}
             <main className="main-content">
                 {" "}
                 {/* Para aplicar padding y evitar que el contenido quede debajo del navbar fijo */}

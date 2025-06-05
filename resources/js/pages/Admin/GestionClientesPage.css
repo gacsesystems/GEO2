@@ -52,6 +52,11 @@
     align-items: center;
     gap: 8px;
     transition: background-color 0.2s, transform 0.1s;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 .gcp-button:hover {
     transform: translateY(-1px);
@@ -176,6 +181,11 @@
     cursor: pointer;
     color: #777; /* Color base de iconos */
     transition: color 0.2s;
+
+    svg {
+        width: 1.5em;
+        height: 1.5em;
+    }
 }
 .gcp-action-button:hover {
     color: #fe971c; /* Naranja al pasar el mouse (editar) */

@@ -1,0 +1,78 @@
+.card-stats-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s ease-in-out;
+    font-family: "DM Sans", sans-serif;
+}
+.card-stats-item:hover {
+    transform: translateY(-3px);
+}
+
+.card-stats-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-stats-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-stats-subtitle {
+    color: #6c757d; /* Gris texto secundario */
+    font-size: 0.75rem; /* Pequeño */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.card-stats-title {
+    color: #343a40; /* Texto principal oscuro */
+    font-size: 1.75rem; /* Grande */
+    font-weight: bold;
+    font-family: "Coco Gothic", sans-serif; /* O DM Sans bold */
+}
+
+.card-stats-icon-wrapper {
+    padding: 12px;
+    border-radius: 50%; /* Círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Icono blanco por defecto */
+}
+.card-stats-icon-wrapper .nav-icon {
+    /* Asumiendo que tus iconos tienen esta clase */
+    width: 24px;
+    height: 24px;
+}
+
+/* Define tus clases de color de fondo (puedes ponerlas en app.css global si son reutilizables) */
+.bg-brand-orange {
+    background-color: #fe971c;
+}
+.bg-brand-purple {
+    background-color: #9c72d0;
+}
+.bg-brand-yellow {
+    background-color: #fdd673;
+} /* O un amarillo más oscuro para el icono */
+.bg-brand-success {
+    background-color: #8cc04e;
+}
+/* ... y otros colores de tu paleta */
+
+.card-stats-footer {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+.card-stats-percent {
+    margin-right: 5px;
+    /* icon-arrow-up, icon-arrow-down para las flechas */
+}
+/* .text-emerald-500 { color: #10B981; } */
+/* .text-red-500 { color: #EF4444; } */
