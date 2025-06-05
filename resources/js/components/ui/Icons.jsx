@@ -214,3 +214,130 @@ export const TrashIcon = ({ className = "nav-icon", ...restProps }) => (
         </g>
     </svg>
 );
+
+export const ArrowUpIcon = ({ className = "nav-icon" }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.5 15.75l7.5-7.5 7.5 7.5"
+        />
+    </svg>
+);
+
+export const ArrowDownIcon = ({ className = "nav-icon" }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+        />
+    </svg>
+);
+
+// Si CancelIcon no está definido como XMarkIcon, créalo:
+export const CancelIcon = (
+    { className = "nav-icon" } // Para OpcionesPreguntaEditor
+) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+        />
+    </svg>
+);
+
+export const CogIcon = ({ className = "nav-icon" }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 21v-1.5m0 0H8.75m2.25 0H18M4.5 3h15M4.5 21h15a2 2 0 002-2V5a2 2 0 00-2-2h-15a2 2 0 00-2 2v14a2 2 0 002 2z"
+        />
+    </svg>
+);
+
+export const CheckIcon = ({ className = "nav-icon" }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 12L9 20.168V3.832L21 12Z"
+        />
+    </svg>
+);
+
+export const ArrowLeftIcon = ({ className = "nav-icon" }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 19.5L8.25 12l7.5-7.5"
+        />
+    </svg>
+);
+
+export const ArrowRightIcon = ({ className = "nav-icon" }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className={className}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+        />
+    </svg>
+);
+
+// Asegúrate de que todos los iconos que usaste estén definidos aquí.
+// Por ejemplo, si usaste [IconoAgregar.svg] como texto, aquí lo defines como componente SVG:
+// export const PlusIcon = ({ className = "nav-icon" }) => ( ... );
+// Lo mismo para PencilIcon, TrashIcon, CogIcon (para diseñar/opciones), LinkIcon, ChartBarIcon (para resultados)

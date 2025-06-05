@@ -1,0 +1,133 @@
+/* Asume que .data-table tiene estilos base definidos globalmente (como en CardTable.css) */
+/* Si no, copia los estilos de .card-table-element, .card-table-th, .card-table-td de CardTable.css aquí y renómbralos. */
+
+.encuestas-table {
+    /* Clase específica para esta tabla */
+    /* Estilos base de tabla, si no los hereda */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Espacio si hay un buscador arriba */
+    font-family: "DM Sans", sans-serif;
+}
+
+.encuestas-table th,
+.encuestas-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0; /* Borde sutil */
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.encuestas-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.encuestas-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.encuestas-table .text-center {
+    text-align: center;
+}
+.encuestas-table .text-right {
+    text-align: right;
+}
+.encuestas-table .text-muted {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.encuestas-table .acciones-cell {
+    white-space: nowrap; /* Evitar que los botones se rompan en varias líneas */
+    text-align: right; /* Alinear botones a la derecha */
+}
+
+.encuestas-table .btn-accion {
+    background: none;
+    border: none;
+    padding: 6px; /* Un poco más de padding para mejor clickeabilidad */
+    cursor: pointer;
+    margin-left: 5px; /* Espacio entre botones */
+    color: #6c757d; /* Color base de iconos de acción */
+    border-radius: 4px; /* Bordes redondeados suaves */
+    transition: background-color 0.2s, color 0.2s;
+}
+.encuestas-table .btn-accion .nav-icon {
+    /* Asumiendo que tus iconos tienen esta clase */
+    width: 18px;
+    height: 18px;
+    vertical-align: middle; /* Mejor alineación si el botón tiene texto */
+}
+
+/* Colores de hover específicos para cada botón */
+.encuestas-table .btn-accion.btn-design:hover {
+    color: #9c72d0;
+    background-color: #f0eaff;
+} /* Morado */
+.encuestas-table .btn-accion.btn-editar:hover {
+    color: #fe971c;
+    background-color: #fff3e0;
+} /* Naranja */
+.encuestas-table .btn-accion.btn-ver:hover {
+    color: #17a2b8;
+    background-color: #e0f7fa;
+} /* Cyan/Azul info */
+.encuestas-table .btn-accion.btn-link:hover {
+    color: #28a745;
+    background-color: #d4edda;
+} /* Verde */
+.encuestas-table .btn-accion.btn-eliminar:hover {
+    color: #ff443a;
+    background-color: #fde2e2;
+} /* Rojo */
+.encuestas-table .btn-accion.btn-preview:hover {
+    color: #007bff;
+    background-color: #e7f3ff;
+} /* Azul primario */
+
+/* Responsividad básica para la tabla */
+@media screen and (max-width: 768px) {
+    .encuestas-table thead {
+        display: none; /* Ocultar cabeceras tradicionales */
+    }
+    .encuestas-table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .encuestas-table td {
+        display: block;
+        text-align: right; /* Alinear valor a la derecha */
+        padding-left: 50%; /* Espacio para la etiqueta "data-label" */
+        position: relative;
+        border-bottom: 1px dotted #eee;
+    }
+    .encuestas-table td:last-child {
+        border-bottom: none;
+    }
+    .encuestas-table td::before {
+        content: attr(data-label); /* Mostrar la etiqueta */
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px); /* Ancho de la etiqueta */
+        padding-right: 10px;
+        font-weight: bold;
+        text-align: left;
+        white-space: nowrap;
+    }
+    .encuestas-table .acciones-cell {
+        text-align: center; /* Centrar botones en móvil */
+        padding-left: 15px; /* Resetear padding si es necesario */
+    }
+    .encuestas-table .acciones-cell::before {
+        display: none; /* No mostrar data-label para acciones */
+    }
+}

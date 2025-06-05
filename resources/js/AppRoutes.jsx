@@ -20,6 +20,7 @@ import PlaceholderPage from "./pages/PlaceholderPage"; // Para páginas no cread
 import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
 import AdminLayout from "./components/layout/AdminLayout";
 import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
+import DiseñadorEncuestaPage from "./pages/Cliente/DiseñadorEncuestaPage";
 
 function AppRoutes() {
     const { isAuthenticated, user, isLoading } = useAuth();
@@ -155,6 +156,10 @@ function AppRoutes() {
                     element={
                         <PlaceholderPage pageName="Reportes de Encuesta" />
                     }
+                />
+                <Route
+                    path="/cliente/encuestas/:idEncuesta/disenar"
+                    element={<DiseñadorEncuestaPage />}
                 />
                 {/* Añade más rutas de cliente aquí dentro */}
             </Route>

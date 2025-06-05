@@ -1,0 +1,128 @@
+.cliente-dashboard-container {
+    padding: 25px;
+    font-family: "DM Sans", sans-serif;
+    background-color: #f9faff; /* Un fondo muy claro para la página */
+    min-height: calc(
+        100vh - 70px - 45px
+    ); /* Altura de Navbar y posible alerta de email */
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e6ed;
+}
+
+.dashboard-header h1 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.welcome-message {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.dashboard-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.action-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+}
+
+.action-card .nav-icon {
+    /* Asumiendo que tus iconos de ui/Icons.jsx tienen esta clase base */
+    width: 48px;
+    height: 48px;
+    margin-bottom: 15px;
+    /* Colores específicos para cada card */
+}
+.action-card.crear-encuesta .nav-icon {
+    color: #8cc04e;
+} /* Verde */
+.action-card.gestionar-encuestas .nav-icon {
+    color: #9c72d0;
+} /* Morado */
+.action-card.ver-reportes .nav-icon {
+    color: #fe971c;
+} /* Naranja */
+
+.action-card h2 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 1.4rem;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.action-card p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.dashboard-stats-overview {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.dashboard-stats-overview h3 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+.dashboard-stats-overview .info-message {
+    /* Para "próximamente" */
+    text-align: center;
+    color: #777;
+    padding: 20px 0;
+}
+
+/* Si añades stats reales */
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.stat-item {
+    text-align: center;
+}
+.stat-item h4 {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.stat-item .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #9c72d0; /* Morado */
+    font-family: "Coco Gothic", sans-serif;
+}
+.stat-item .stat-value-small {
+    font-size: 1rem;
+    color: #555;
+}

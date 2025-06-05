@@ -1,0 +1,262 @@
+/* Definición de variables CSS (Idealmente en app.css o un archivo _variables.css importado) */
+:root {
+    --font-body: "DM Sans", sans-serif;
+    --font-header: "Coco Gothic", sans-serif;
+
+    --color-primary-dark: #825ab7; /* Un morado más oscuro */
+    --color-primary-medium: #9c72d0; /* Tu morado principal */
+    --color-primary-light: #d7c5ed; /* Un morado más claro */
+
+    --color-text-primary: #333;
+    --color-text-secondary: #555;
+    --color-text-muted: #777;
+    --color-text-button: white;
+
+    --color-background-page: #f8f9fa; /* Fondo general de la página */
+    --color-background-card: #ffffff;
+    --color-border-light: #e0e6ed;
+    --color-border-medium: #ced4da;
+    --color-danger: #e53e3e;
+    --color-success: #38a169;
+
+    --spacing-xs: 0.25rem; /* 4px */
+    --spacing-sm: 0.5rem; /* 8px */
+    --spacing-md: 1rem; /* 16px */
+    --spacing-lg: 1.5rem; /* 24px */
+    --spacing-xl: 2rem; /* 32px */
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.07),
+        0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+        0 2px 4px -1px rgba(0, 0, 0, 0.04);
+
+    --fs-small: 0.875rem;
+    --fs-normal: 1rem;
+    --fs-medium: 1.25rem;
+    --fs-large: 1.5rem;
+    --fs-xlarge: 1.875rem;
+}
+
+/* Estilos generales para páginas de gestión de cliente si no los tienes globales */
+.gestion-page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--spacing-lg) var(--spacing-md);
+    font-family: var(--font-body);
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinear verticalmente */
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border-light);
+}
+.page-header h1 {
+    font-family: var(--font-header);
+    font-size: var(--fs-xlarge);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+.btn-accion-principal {
+    /* Botón grande de acción en el header */
+    background-color: var(--color-primary-medium);
+    color: var(--color-text-button);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--fs-small);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    transition: background-color 0.2s;
+}
+.btn-accion-principal:hover {
+    background-color: var(--color-primary-dark);
+}
+.btn-accion-principal .nav-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Estilos específicos del Diseñador */
+.disenador-encuesta-container .page-header {
+    align-items: flex-start;
+}
+.disenador-encuesta-container .page-header > div:first-child {
+    flex-grow: 1;
+}
+
+.descripcion-encuesta-principal {
+    font-size: var(--fs-normal);
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-xs);
+    max-width: 70ch;
+}
+
+.btn-accion-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--color-primary-medium);
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    text-decoration: none;
+}
+.btn-accion-link:hover {
+    color: var(--color-primary-dark);
+}
+.btn-accion-link .nav-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.loading-message.small {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+    padding: var(--spacing-sm) 0;
+    text-align: left;
+}
+
+.secciones-listado {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.seccion-card {
+    background-color: var(--color-background-card);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.seccion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border-light);
+}
+.seccion-header h3 {
+    font-size: var(--fs-medium);
+    font-family: var(--font-header);
+    font-weight: normal; /* Coco Gothic Regular */
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.seccion-acciones {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.btn-accion-secundario {
+    /* Botones más pequeños para acciones dentro de cards/listas */
+    background-color: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border-medium);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--fs-small);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all 0.2s ease;
+}
+.btn-accion-secundario:hover:not(:disabled) {
+    background-color: #f0f0f0;
+    border-color: #adb5bd;
+    color: var(--color-text-primary);
+}
+.btn-accion-secundario.btn-peligro:hover:not(:disabled) {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+    color: white;
+}
+.btn-accion-secundario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.btn-accion-secundario .nav-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.descripcion-seccion-item {
+    font-size: var(--fs-small);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
+}
+
+.preguntas-de-seccion-container {
+    margin-top: var(--spacing-md);
+    padding-left: var(--spacing-md);
+    border-left: 3px solid var(--color-primary-light);
+}
+.preguntas-de-seccion-container h4 {
+    font-size: var(--fs-normal);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.btn-agregar-pregunta {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    border: 1px dashed var(--color-primary-medium);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all 0.2s ease;
+    margin-top: var(
+        --spacing-sm
+    ); /* Espacio después de la lista de preguntas */
+}
+.btn-agregar-pregunta:hover:not(:disabled) {
+    background-color: var(--color-primary-medium);
+    color: white;
+    border-style: solid;
+}
+.btn-agregar-pregunta:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.loading-fullscreen {
+    /* Estilo general para cuando toda la página está cargando */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    font-size: var(--fs-large);
+    color: var(--color-text-muted);
+}
+
+.error-message.full-width-error {
+    background-color: #fff5f5;
+    color: #c53030;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #fc8181;
+    text-align: center;
+    margin: var(--spacing-md) 0;
+}

@@ -1,0 +1,138 @@
+.opciones-editor-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+
+.opciones-editor-container h4 {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.opciones-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.opcion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 0.9rem;
+}
+.opcion-item:last-child {
+    border-bottom: none;
+}
+
+.opcion-texto {
+    flex-grow: 1;
+    color: #333;
+}
+.opcion-valor {
+    font-size: 0.8em;
+    color: #777;
+    margin-left: 8px;
+}
+
+.opcion-edit-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+}
+.opcion-edit-form input[type="text"] {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+.opcion-edit-form input[type="text"]:first-of-type {
+    min-width: 150px; /* Espacio para el texto */
+}
+
+.opcion-acciones {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-accion-inline {
+    /* Botones pequeños para acciones inline */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #666;
+}
+.btn-accion-inline:hover {
+    color: #333;
+}
+.btn-accion-inline.success:hover {
+    color: #28a745;
+}
+.btn-accion-inline.cancel:hover {
+    color: #dc3545;
+}
+.btn-accion-inline.danger:hover {
+    color: #ff443a;
+}
+.btn-accion-inline .nav-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.nueva-opcion-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+.nueva-opcion-form input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    flex-grow: 1;
+}
+.nueva-opcion-form .add-option {
+    /* Estilos similares a otros botones de agregar, pero más pequeños */
+    background-color: #e7f3ff; /* Azul claro */
+    color: #007bff; /* Azul */
+    border: 1px solid #b8daff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.nueva-opcion-form .add-option:hover {
+    background-color: #cce5ff;
+}
+.nueva-opcion-form .add-option .nav-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.error-message.small-error {
+    /* Para errores dentro del editor de opciones */
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}

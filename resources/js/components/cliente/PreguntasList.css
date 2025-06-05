@@ -1,0 +1,123 @@
+/* Asegúrate que estas variables CSS estén definidas en tu app.css o un archivo de variables */
+:root {
+    /* ... (tus variables de spacing, color, font-size, etc.) ... */
+    /* Ejemplo: */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --color-border-light: #e2e8f0;
+    --border-radius-sm: 4px;
+    --color-text-primary: #2d3748;
+    --color-text-muted: #718096;
+    --color-primary-medium: #9c72d0;
+    --color-danger: #e53e3e;
+    --fs-small: 0.875rem;
+}
+
+.info-message-small {
+    /* Para "No hay preguntas..." */
+    font-style: italic;
+    color: var(--color-text-muted);
+    padding: var(--spacing-md) 0;
+    font-size: var(--fs-small);
+}
+
+.preguntas-lista {
+    list-style: none;
+    padding-left: 0;
+    margin-top: var(--spacing-sm);
+}
+
+.pregunta-item {
+    background-color: #fff; /* Fondo blanco para cada item */
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    transition: box-shadow 0.2s ease-in-out;
+}
+.pregunta-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pregunta-info {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md); /* Aumentar gap para mejor separación */
+    flex-wrap: wrap;
+}
+
+.pregunta-orden {
+    font-weight: bold;
+    color: var(--color-primary-medium);
+    font-size: 0.9rem;
+}
+
+.pregunta-texto {
+    color: var(--color-text-primary);
+    font-size: 0.95rem; /* Un poco más grande */
+    flex-basis: 60%; /* Darle más espacio al texto */
+    word-break: break-word; /* Para textos largos */
+}
+
+.pregunta-tipo {
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+    background-color: #f0f4f8; /* Un fondo suave para el tipo */
+    padding: 3px 8px;
+    border-radius: var(--border-radius-sm);
+    white-space: nowrap;
+}
+
+.pregunta-obligatoria {
+    color: var(--color-danger);
+    font-weight: 500; /* No tan bold */
+    font-size: var(--fs-small);
+    margin-left: 4px;
+    white-space: nowrap;
+}
+
+.pregunta-acciones-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    white-space: nowrap; /* Evitar que los botones se partan */
+}
+
+/* Reutilizar estilos de .btn-accion-secundario de DiseñadorEncuestaPage.css si es posible,
+   o definirlos aquí si son diferentes */
+.pregunta-acciones-item .btn-accion-secundario {
+    background-color: transparent;
+    color: #6c757d; /* Gris oscuro para iconos */
+    border: none; /* O 1px solid #ccc; */
+    padding: 6px;
+    border-radius: var(--border-radius-sm);
+    font-size: var(--fs-small);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Centrar icono */
+    transition: all 0.2s ease;
+}
+.pregunta-acciones-item .btn-accion-secundario:hover {
+    background-color: #e9ecef; /* Gris muy claro */
+    color: #343a40; /* Negro */
+}
+.pregunta-acciones-item .btn-accion-secundario.btn-peligro:hover {
+    background-color: #f8d7da; /* Rojo claro */
+    color: var(--color-danger);
+}
+.pregunta-acciones-item .btn-accion-secundario .nav-icon {
+    /* Asumiendo que tus iconos tienen esta clase */
+    width: 18px; /* Ajusta el tamaño de los iconos */
+    height: 18px;
+}
+.pregunta-acciones-item .btn-accion-secundario:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

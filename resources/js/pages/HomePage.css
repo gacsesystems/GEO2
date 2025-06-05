@@ -1,0 +1,133 @@
+.home-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(
+        100vh - 70px
+    ); /* Asumiendo que no hay navbar o es de 70px si la hay */
+    padding: 40px 20px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    background: linear-gradient(
+        135deg,
+        #f8f0ff 0%,
+        #e6d4ff 100%
+    ); /* Un gradiente suave morado */
+    color: #333;
+}
+
+.home-header {
+    margin-bottom: 40px;
+}
+
+.home-logo {
+    max-height: 60px;
+    margin-bottom: 20px;
+}
+
+.home-header h1 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2.8rem;
+    color: #9c72d0; /* Morado principal */
+    margin-bottom: 10px;
+}
+
+.home-subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.home-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    max-width: 900px;
+}
+
+.feature-item {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    flex-basis: 280px; /* Ancho base de cada feature */
+    transition: transform 0.2s ease-in-out;
+}
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+.feature-item /* .icono-svg */ {
+    /* Si usas iconos SVG */
+    /* width: 40px; height: 40px; margin-bottom: 15px; color: #FE971C; /* Naranja */
+}
+.feature-item h3 {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 1.3rem;
+    color: #825ab7; /* Morado más oscuro */
+    margin-bottom: 8px;
+}
+.feature-item p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.home-actions {
+    margin-top: 20px;
+}
+.home-actions p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.home-button {
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 0 10px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.2s;
+    min-width: 150px;
+}
+.home-button:hover {
+    transform: translateY(-2px);
+}
+
+.home-button.login {
+    background-color: #fe971c; /* Naranja */
+    color: white;
+    border: 2px solid #fe971c;
+}
+.home-button.login:hover {
+    background-color: #e08008;
+    border-color: #e08008;
+}
+
+.home-button.register {
+    background-color: transparent;
+    color: #9c72d0; /* Morado */
+    border: 2px solid #9c72d0;
+}
+.home-button.register:hover {
+    background-color: #9c72d0;
+    color: white;
+}
+
+.contact-info {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #777;
+}
+.contact-info a {
+    color: #9c72d0;
+    text-decoration: none;
+}
+.contact-info a:hover {
+    text-decoration: underline;
+}

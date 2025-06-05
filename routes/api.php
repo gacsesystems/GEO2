@@ -11,7 +11,7 @@ use App\Http\Controllers\OpcionPreguntaController;
 use App\Http\Controllers\RespuestasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
-
+use App\Http\Controllers\TipoPreguntaController;
 // ————————————————————————————————————————————————————————————————————
 // 1) CSRF + registro / login (sin auth)
 // ————————————————————————————————————————————————————————————————————
@@ -75,6 +75,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () { // Hasta qu
 
     // Reordenar una única opción (end-point “shallow”)
     Route::post('opciones/{opcionPregunta}/reordenar', [OpcionPreguntaController::class, 'reordenar'])->name('preguntas.opciones.reordenar');
+
+    // Tipos de pregunta
+    Route::apiResource('tipos-pregunta', TipoPreguntaController::class);
 
     // Route::prefix('reportes/encuestas/{encuesta}')->name('reportes.encuestas.')->group(function () {
     //   Route::get('respuestas-detalladas', [ReportesController::class, 'respuestasDetalladas'])
@@ -168,3 +171,14 @@ Route::prefix('encuestas')->group(function () {
     //    [ReportesController::class, 'respuestasDetalladasPublico']
     // );
 });
+
+// ============================================================================
+// 8) Endpoints públicos de “Cuestionario de paciente” (mobile‐first):
+//    GET /api/cuestionarios/{encuesta}/{paciente_id?}
+//    → Si el paciente_id no existe o no se envía, el cuestionario se mostrará 
+//      con todos los valores en blanco (nuevo registro).
+//    → Si existe paciente_id, intenta pre‐llenar con los valores que haya en SQL Server.
+//    → Solo si es es_cuestionario=1 y esta_activa == true.
+// ============================================================================
+
+Route::get('cuestionarios/{encuesta}/{paciente_id?}', [EncuestaController::class, 'cuestionarioParaPaciente'])->name('cuestionarios.paraPaciente');

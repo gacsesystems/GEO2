@@ -1,0 +1,97 @@
+/* Puedes copiar la mayoría de los estilos de GestionClientesPage.css
+   y renombrar las clases gcp-* a gep-* (Gestion Encuestas Page) o
+   crear un archivo CSS global para estos layouts de página de gestión. */
+
+.gestion-encuestas-container {
+    /* Similar a .gcp-container */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    font-family: "DM Sans", sans-serif;
+}
+
+.gestion-encuestas-container .page-header {
+    /* Similar a .gcp-header */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.gestion-encuestas-container .page-header h1 {
+    /* Similar a .gcp-main-title */
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 2.2rem; /* Un poco más pequeño quizás que el de admin */
+    font-weight: bold;
+    color: #333;
+}
+
+.gestion-encuestas-container .btn-accion-principal.btn-agregar {
+    /* Similar a .gcp-button-primary */
+    background-color: #9c72d0; /* Morado */
+    color: white;
+    /* ...otros estilos de .gcp-button ... */
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.gestion-encuestas-container .btn-accion-principal.btn-agregar:hover {
+    background-color: #8960b7;
+    transform: translateY(-1px);
+}
+.gestion-encuestas-container .btn-accion-principal.btn-agregar .nav-icon {
+    /* Si usas un Icono SVG */
+    width: 18px;
+    height: 18px;
+}
+
+.filtros-y-busqueda {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.search-input {
+    /* Similar a .gcp-search-input */
+    padding: 10px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 20px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    min-width: 280px;
+    flex-grow: 1; /* Para que ocupe el espacio disponible */
+}
+.search-input:focus {
+    outline: none;
+    border-color: #9c72d0;
+    box-shadow: 0 0 0 2px rgba(156, 114, 208, 0.3);
+}
+
+.info-message {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-size: 1rem;
+}
+.error-message.full-width-error {
+    /* Para errores que ocupan más espacio */
+    background-color: #fff5f5;
+    color: #c53030;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #fc8181;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la tabla de encuestas ya están en EncuestasTable.css */
+/* Estilos para el modal ya están en Modal.css */
