@@ -1,0 +1,193 @@
+.main-navbar {
+    background-color: #fff; /* Fondo blanco como en el mockup del contenido */
+    padding: 0 25px; /* Ajusta el padding horizontal */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px; /* Altura de la barra de navegación */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Sombra sutil */
+    font-family: "DM Sans", sans-serif;
+    position: sticky; /* Para que se quede fija arriba al hacer scroll */
+    top: 0;
+    z-index: 900; /* Menor que el modal overlay */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-logo-text {
+    /* Estilo para el texto si decides mantenerlo */
+    color: #9c72d0; /* Morado principal */
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.navbar-logo-image {
+    width: auto; /* Tamaño del icono de home/logo */
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar-logo .nav-icon {
+    width: 28px; /* Tamaño del icono de home/logo */
+    height: 28px;
+    margin-right: 10px;
+}
+
+/* .navbar-logo span { */
+/* Estilo para el texto del logo si es necesario */
+/* } */
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 10px; /* Espacio entre links principales */
+}
+
+.navbar-links li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px; /* Aumentar padding para mejor clickeabilidad */
+    text-decoration: none;
+    color: #555; /* Color de texto para links */
+    font-weight: 500; /* Un poco más de peso */
+    font-size: 0.95rem;
+    border-radius: 6px; /* Bordes redondeados sutiles para los links */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.navbar-links li a .nav-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.navbar-links li a:hover {
+    background-color: #f0eaff; /* Fondo morado muy claro al pasar el mouse */
+    color: #9c72d0; /* Color de texto morado al pasar el mouse */
+}
+
+.navbar-links li a.active {
+    /* Estilo para el link activo con NavLink */
+    background-color: #9c72d0; /* Morado principal */
+    color: white;
+    font-weight: bold;
+}
+.navbar-links li a.active .nav-icon {
+    color: white; /* Asegurar que el icono también cambie */
+}
+
+.navbar-user-section {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre saludo y botón */
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.logout-button {
+    background-color: transparent; /* O un color sutil */
+    color: #9c72d0; /* Morado para el texto/icono */
+    border: 1px solid #9c72d0; /* Borde morado */
+    padding: 8px 15px;
+    border-radius: 20px; /* Bordes redondeados */
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s, color 0.2s;
+
+    svg {
+        width: 1.5em;
+        height: 1.5em;
+        display: inline-block; /* Para que se alinee bien con el texto */
+        vertical-align: middle; /* Mejor alineación vertical con el texto */
+        /* margin-right: 8px; si siempre quieres un margen cuando están con texto (ya lo tienes en .navbar-links li a .nav-icon) */
+    }
+}
+
+.logout-button:hover {
+    background-color: #9c72d0;
+    color: white;
+}
+
+.logout-button .nav-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Alerta de Verificación de Correo */
+.email-verification-alert {
+    background-color: #fff3cd; /* Amarillo pálido */
+    color: #856404; /* Texto oscuro para contraste */
+    padding: 12px 20px;
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-bottom: 1px solid #ffeeba;
+}
+
+.email-verification-alert .alert-icon {
+    width: 20px;
+    height: 20px;
+    color: #cea000; /* Un amarillo más oscuro para el icono */
+}
+
+.email-verification-alert .verify-email-link {
+    color: #856404;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.email-verification-alert .verify-email-link:hover {
+    color: #533f03;
+}
+
+/* Para iconos generales en la barra de navegación */
+/* .nav-icon { */
+/* Dimensiones y color base se definen en cada uso específico o aquí si son consistentes */
+/* } */
+
+/* Media query para responsividad (Ejemplo simple) */
+@media (max-width: 768px) {
+    .main-navbar {
+        padding: 0 15px;
+        height: 60px;
+    }
+    .navbar-links {
+        display: none; /* Ocultar links y mostrar un botón de hamburguesa */
+        /* Aquí implementarías la lógica para un menú desplegable */
+    }
+    .navbar-logo span {
+        display: none; /* Ocultar texto del logo en pantallas pequeñas, solo icono */
+    }
+    .user-greeting {
+        display: none; /* Ocultar saludo en pantallas pequeñas */
+    }
+    /* .logout-button span { */
+    /* Si el texto del botón logout es un span */
+    /* display: none; */ /* Ocultar texto del botón, solo icono */
+    /* } */
+}

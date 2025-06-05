@@ -23,10 +23,10 @@ class UserSeeder extends Seeder
         // --- Usuario Administrador (sin cambios respecto a la versión anterior) ---
         if ($rolAdministrador) {
             User::updateOrCreate(
-                ['email' => 'admin@example.com'],
+                ['email' => 'sagt@gacse.com'],
                 [
-                    'nombre_completo' => 'Administrador Principal',
-                    'password' => Hash::make('abc123'),
+                    'nombre_completo' => 'Saúl González',
+                    'password' => Hash::make('gacse123'),
                     'id_rol' => $rolAdministrador->id_rol,
                     'id_cliente' => null,
                     'activo' => true,
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
         // --- Usuario Cliente de Ejemplo (sin cambios respecto a la versión anterior) ---
         if ($rolCliente && $clienteEjemplo) {
             User::updateOrCreate(
-                ['email' => 'cliente@example.com'],
+                ['email' => 'saulizaso@hotmail.com'],
                 [
                     'nombre_completo' => 'Usuario Cliente Demo',
                     'password' => Hash::make('password'),

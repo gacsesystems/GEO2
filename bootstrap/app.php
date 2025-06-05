@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $m) {
         //    statefulApi() == añade \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful
         //    a las rutas que usen el middleware “api” (antes se hacía en el Kernel).
-        // $m->statefulApi(); // Para que se pueda usar el estado de la sesión en las API
+        $m->statefulApi(); // Para que se pueda usar el estado de la sesión en las API
         // $m->throttleApi(); // Para limitar el número de peticiones a la API
         // $m->validateCsrfTokens(); // Para validar los tokens CSRF
     })

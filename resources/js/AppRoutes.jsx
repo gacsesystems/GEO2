@@ -19,7 +19,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import PlaceholderPage from "./pages/PlaceholderPage"; // Para páginas no creadas
 import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
 
-function Menu() {
+function AppRoutes() {
     const { isAuthenticated, user, isLoading } = useAuth();
 
     if (isLoading) {
@@ -42,6 +42,7 @@ function Menu() {
 
     return (
         <Routes>
+            {/* RUTAS PÚBLICAS O QUE MANEJAN AUTENTICACIÓN */}
             <Route
                 path="/login"
                 element={
@@ -53,21 +54,32 @@ function Menu() {
                 }
             />
             <Route
-                path="/register"
-                element={<PlaceholderPage pageName="Registro" />}
-            />{" "}
-            {/* Placeholder */}
+                path="/register" // Asumiendo que tendrás una página de registro eventualmente
+                element={
+                    isAuthenticated ? (
+                        <Navigate to={getRedirectPath()} replace />
+                    ) : (
+                        <PlaceholderPage pageName="Registro de Usuario" />
+                    )
+                }
+            />
+
+            {/* RUTA RAÍZ */}
             <Route
                 path="/"
                 element={
                     isAuthenticated ? (
-                        <Navigate to="/dashboard" replace />
+                        <Navigate to="/dashboard" replace /> // Redirige a un dashboard genérico que luego redirige por rol
                     ) : (
                         <Navigate to="/login" replace />
                     )
                 }
             />
-            <Route element={<ProtectedRoute />}>
+
+            {/* RUTA DE DASHBOARD GENÉRICO (PROTEGIDA) */}
+            {/* Esta ruta requiere autenticación pero no necesariamente verificación de correo aún,
+                ya que su único propósito es redirigir. */}
+            <Route element={<ProtectedRoute requireVerifiedEmail={false} />}>
                 <Route
                     path="/dashboard"
                     element={
@@ -76,13 +88,22 @@ function Menu() {
                         ) : user?.rol === "Cliente" ? (
                             <Navigate to="/cliente/dashboard" replace />
                         ) : (
+                            // Si el rol no es reconocido o el usuario es null (aunque no debería serlo aquí)
                             <Navigate to="/login" replace />
                         )
                     }
                 />
             </Route>
+
+            {/* --- RUTAS DE ADMINISTRADOR --- */}
+            {/* Estas rutas requieren autenticación, rol de Administrador Y correo verificado */}
             <Route
-                element={<ProtectedRoute rolesPermitidos={["Administrador"]} />}
+                element={
+                    <ProtectedRoute
+                        rolesPermitidos={["Administrador"]}
+                        requireVerifiedEmail={true} // <--- Protección de correo verificado
+                    />
+                }
             >
                 <Route
                     path="/admin/dashboard"
@@ -98,8 +119,19 @@ function Menu() {
                         <PlaceholderPage pageName="Gestión de Usuarios (Admin)" />
                     }
                 />
+                {/* Añade más rutas de admin aquí dentro si todas requieren la misma protección */}
             </Route>
-            <Route element={<ProtectedRoute rolesPermitidos={["Cliente"]} />}>
+
+            {/* --- RUTAS DE CLIENTE --- */}
+            {/* Estas rutas requieren autenticación, rol de Cliente Y correo verificado */}
+            <Route
+                element={
+                    <ProtectedRoute
+                        rolesPermitidos={["Cliente"]}
+                        requireVerifiedEmail={true} // <--- Protección de correo verificado
+                    />
+                }
+            >
                 <Route
                     path="/cliente/dashboard"
                     element={<PlaceholderPage pageName="Dashboard Cliente" />}
@@ -122,11 +154,31 @@ function Menu() {
                         <PlaceholderPage pageName="Reportes de Encuesta" />
                     }
                 />
+                {/* Añade más rutas de cliente aquí dentro */}
             </Route>
+
+            {/* --- RUTA DE VERIFICACIÓN DE CORREO --- */}
+            {/* Esta ruta solo requiere autenticación (para saber QUIÉN está intentando reenviar),
+                NO requiere que el email ya esté verificado. */}
+            <Route element={<ProtectedRoute requireVerifiedEmail={false} />}>
+                <Route
+                    path="/verifica-tu-correo"
+                    element={<VerificaCorreoPage />}
+                />
+            </Route>
+
+            {/* RUTAS DE RESULTADO DE VERIFICACIÓN (públicas en el sentido de acceso, pero el usuario estará logueado) */}
+            {/* Laravel redirigirá aquí. VerificaCorreoPage manejará el mensaje. */}
             <Route
-                path="/verifica-tu-correo"
+                path="/email-verificado-exitosamente"
                 element={<VerificaCorreoPage />}
             />
+            <Route
+                path="/email-already-verified"
+                element={<VerificaCorreoPage />}
+            />
+
+            {/* RUTA CATCH-ALL PARA 404 */}
             <Route
                 path="*"
                 element={
@@ -137,4 +189,4 @@ function Menu() {
     );
 }
 
-export default Menu;
+export default AppRoutes;

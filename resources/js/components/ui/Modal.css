@@ -71,6 +71,7 @@
     margin-bottom: 25px;
     text-align: center;
     color: #9c72d0; /* Morado para el título */
+    font-family: "Coco Gothic", sans-serif;
 }
 
 /* .modal-body { */
@@ -88,6 +89,7 @@
     border: 1px solid #ccc;
     border-radius: 8px; /* Bordes redondeados para inputs */
     box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
     font-size: 1rem;
 }
 
@@ -114,6 +116,7 @@
 }
 .modal-body .form-checkbox-container label {
     color: #333;
+    font-family: "DM Sans", sans-serif;
 }
 
 .modal-form-actions {
@@ -158,6 +161,7 @@
     margin-top: 15px;
     font-size: 0.9rem;
     text-align: center;
+    font-family: "DM Sans", sans-serif;
 }
 .modal-form-message.success {
     color: #8cc04e;

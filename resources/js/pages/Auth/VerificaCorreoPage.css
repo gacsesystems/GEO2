@@ -1,0 +1,136 @@
+.vcp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Para que no ocupe toda la pantalla si hay navbar */
+    padding: 20px;
+    background-color: #f4f6f8; /* Un fondo suave */
+    font-family: "DM Sans", sans-serif;
+}
+
+.vcp-card {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 550px;
+    width: 100%;
+}
+
+.vcp-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    color: #9c72d0; /* Color por defecto (morado) */
+}
+.vcp-icon.success {
+    color: #8cc04e; /* Verde */
+}
+.vcp-icon.error {
+    color: #ff443a; /* Rojo */
+}
+.vcp-icon.info {
+    /* Si decides tener uno para info también */
+    color: #17a2b8; /* Azul info */
+}
+
+.vcp-title {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.vcp-message {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+.vcp-message.info {
+    background-color: #e6f3ff; /* Azul claro */
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+.vcp-message.success {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.vcp-message.error {
+    background-color: #f8d7da; /* Rojo claro */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.vcp-actions {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.vcp-resend-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.vcp-button {
+    background-color: #9c72d0; /* Morado principal */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.vcp-button:hover:not(:disabled) {
+    background-color: #8960b7; /* Morado más oscuro */
+}
+.vcp-button:disabled {
+    background-color: #c5b0e0;
+    cursor: not-allowed;
+}
+
+.vcp-footer-links {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+}
+.vcp-link,
+.vcp-link-button {
+    color: #9c72d0; /* Morado */
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 5px;
+    transition: color 0.2s;
+}
+.vcp-link:hover,
+.vcp-link-button:hover {
+    color: #8960b7;
+    text-decoration: underline;
+}
+.vcp-link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit; /* Heredar fuente para que parezca un link */
+}
+
+.vcp-separator {
+    color: #ccc;
+}
+
+.vcp-loading {
+    /* Estilo para el mensaje de carga si es necesario */
+    font-size: 1.2rem;
+    padding: 50px;
+    text-align: center;
+}

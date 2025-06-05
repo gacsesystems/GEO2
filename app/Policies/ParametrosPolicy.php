@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\ParametroSistema;
+use App\Models\Parametros;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ParametroSistemaPolicy
+class ParametrosPolicy
 {
     use HandlesAuthorization;
 
@@ -22,7 +22,7 @@ class ParametroSistemaPolicy
     {
         return false;
     } // Cubierto por before
-    public function view(User $user, ParametroSistema $parametroSistema): bool
+    public function view(User $user, Parametros $parametros): bool
     {
         return false;
     } // Cubierto por before
@@ -30,11 +30,11 @@ class ParametroSistemaPolicy
     {
         return false;
     } // Los parámetros se crean vía seeders o una UI muy restringida
-    public function update(User $user, ParametroSistema $parametroSistema): bool
+    public function update(User $user, Parametros $parametros): bool
     {
         return false;
     } // Cubierto por before
-    public function delete(User $user, ParametroSistema $parametroSistema): bool
+    public function delete(User $user, Parametros $parametros): bool
     {
         return false;
     } // No se eliminan parámetros usualmente

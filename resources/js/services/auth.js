@@ -60,3 +60,24 @@ export const register = async (email, password) => {
         throw error;
     }
 };
+
+/**
+ * Reenvía un enlace de verificación de email al usuario autenticado.
+ */
+export async function resendVerification() {
+    // Llama al endpoint protegido que hace: user()->sendEmailVerificationNotification()
+    await axios.post("/api/email/verification-notification");
+    return true;
+}
+
+/**
+ * Verifica un email usando el id y hash de la URL firmada.
+ * @param {number|string} id   El ID del usuario
+ * @param {string} hash        El hash de la verificación
+ * @returns {string}           Mensaje de respuesta del servidor
+ */
+export async function verifyEmail(id, hash) {
+    // Llama al endpoint firmado: verification.verify
+    const { data } = await axios.get(`/api/email/verify/${id}/${hash}`);
+    return data.message;
+}

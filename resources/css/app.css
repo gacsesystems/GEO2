@@ -148,17 +148,8 @@ button:focus-visible {
     font-style: normal;
     font-display: swap;
 }
-/* Si tienes EXTRABOLD, añádelo también */
-/* @font-face {
-    font-family: 'Coco Gothic';
-    src: url('/fonts/CocoGothic-ExtraBold.woff2') format('woff2'),
-         url('/fonts/CocoGothic-ExtraBold.woff') format('woff');
-    font-weight: 800; // O el peso que corresponda
-    font-style: normal;
-    font-display: swap;
-} */
 
-/* @font-face {
+@font-face {
     font-family: "DM Sans";
     src: url("/fonts/DMSans-Regular.woff2") format("woff2"),
         url("/fonts/DMSans-Regular.woff") format("woff");
@@ -173,7 +164,8 @@ button:focus-visible {
     font-weight: bold;
     font-style: normal;
     font-display: swap;
-} */
+}
+
 /* Añade otras variantes de DM Sans (Light, etc.) si las necesitas */
 
 /* Reseteo básico o normalización (opcional, pero recomendado) */
@@ -245,4 +237,15 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 0;
+}
+
+.main-content {
+    padding-top: 70px; /* Altura de tu navbar para que el contenido no se oculte detrás */
+    /* Si tienes la alerta de verificación, necesitarás más padding cuando esté visible */
+    /* Esto se puede manejar con JavaScript o clases condicionales */
+}
+
+.email-verification-alert + .main-content {
+    /* Si la alerta está presente */
+    padding-top: calc(70px + 45px); /* Altura navbar + altura aprox. alerta */
 }
