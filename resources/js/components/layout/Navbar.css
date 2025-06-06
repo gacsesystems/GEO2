@@ -4,8 +4,7 @@
     align-items: center;
     justify-content: space-between;
     height: 70px; /* Altura de la barra de navegación */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Sombra sutil */
-    font-family: "DM Sans", sans-serif;
+    box-shadow: 0 2px 10px var(--color-sombra-formulario); /* Sombra sutil */
     position: sticky; /* Para que se quede fija arriba al hacer scroll */
     top: 0;
     z-index: 900; /* Menor que el modal overlay */

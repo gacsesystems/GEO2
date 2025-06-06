@@ -134,7 +134,7 @@ class RespuestasController extends Controller
         }
 
         // Autorización manual: solo Admin o cliente dueño puede ver
-        if (! $user->esRol('administrador') && $user->id_cliente !== $enc->id_cliente) {
+        if (! $user->esRol('Administrador') && $user->id_cliente !== $enc->id_cliente) {
             abort(403, 'No autorizado para ver estas respuestas.');
         }
 
@@ -207,7 +207,7 @@ class RespuestasController extends Controller
 
         // 2) Solo admin o cliente dueño de la encuesta puede ver:
         $enc = $encResp->encuesta; // relación EncuestaRespondida→Encuesta
-        if (! $user->esRol('administrador') && $user->id_cliente !== $enc->id_cliente) {
+        if (! $user->esRol('Administrador') && $user->id_cliente !== $enc->id_cliente) {
             abort(403, 'No autorizado para ver esta respuesta.');
         }
 

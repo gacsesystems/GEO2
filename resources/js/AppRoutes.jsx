@@ -6,7 +6,7 @@ import Login from "./pages/Auth/Login";
 // import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
 
 // import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
-// import GestionClientesPage from "./pages/Admin/GestionClientesPage";
+import GestionClientesPage from "./pages/Admin/GestionClientesPage";
 // import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
 
 // import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage";
@@ -148,7 +148,7 @@ export default function AppRoutes() {
                 />
                 <Route
                     path="/admin/clientes"
-                    // element={<GestionClientesPage />}
+                    element={<GestionClientesPage />}
                 />
                 <Route
                     path="/admin/usuarios"

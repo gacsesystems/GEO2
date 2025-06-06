@@ -11,7 +11,7 @@ class StoreRespuestaRequest extends FormRequest
   {
     // Si permites que cualquiera responda, retorna true.
     // Si sólo clientes autenticados pueden responder, cambia a:
-    // return Auth::check() && Auth::user()->esCliente();
+    // return Auth::check() && Auth::user()->esRol('Cliente');
     return true;
   }
 

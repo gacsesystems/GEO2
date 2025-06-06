@@ -10,20 +10,55 @@
     padding: 20px;
     opacity: 0;
     animation: fadeInOverlay 0.3s forwards;
-}
 
-.modal-content {
-    background-color: white;
-    border-radius: 12px; /* Bordes más redondeados que en el mockup, ajustar si es necesario */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    padding: 25px 30px; /* Espaciado interno */
-    width: 100%;
-    max-width: 500px; /* Ancho máximo del modal */
-    max-height: 90vh; /* Altura máxima */
-    overflow-y: auto; /* Scroll si el contenido es muy largo */
-    position: relative;
-    transform: scale(0.95) translateY(-20px);
-    animation: slideInModal 0.3s ease-out forwards;
+    .modal-content {
+        background-color: var(--color-fondo-contenedor);
+        border-radius: 12px; /* Bordes más redondeados que en el mockup, ajustar si es necesario */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 25px 30px; /* Espaciado interno */
+        width: 100%;
+        max-width: 500px; /* Ancho máximo del modal */
+        max-height: 90vh; /* Altura máxima */
+        overflow-y: auto; /* Scroll si el contenido es muy largo */
+        position: relative;
+        transform: scale(0.95) translateY(-20px);
+        animation: slideInModal 0.3s ease-out forwards;
+
+        .modal-close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--color-fondo-contenedor); /* Gris claro */
+            border: none;
+            border-radius: 50%; /* Círculo */
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            svg {
+                width: clamp(1rem, 3vw, 4.25rem);
+                height: clamp(1rem, 3vw, 4.25rem);
+                color: red;
+            }
+
+            :hover {
+                background-color: #e0e0e0; /* Gris un poco más oscuro */
+            }
+        }
+
+        .modal-title {
+            font-size: 1.75rem; /* Tamaño del título como en el mockup "AGREGAR USUARIO" */
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--color-morado-primario); /* Morado para el título */
+            font-family: "Coco Gothic", sans-serif;
+        }
+    }
 }
 
 @keyframes fadeInOverlay {
@@ -39,41 +74,6 @@
     }
 }
 
-.modal-close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: #f0f0f0; /* Gris claro */
-    border: none;
-    border-radius: 50%; /* Círculo */
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.modal-close-button:hover {
-    background-color: #e0e0e0; /* Gris un poco más oscuro */
-}
-
-.modal-close-icon-svg {
-    width: 20px;
-    height: 20px;
-    color: #555; /* Color del icono de cierre */
-}
-
-.modal-title {
-    font-size: 1.75rem; /* Tamaño del título como en el mockup "AGREGAR USUARIO" */
-    font-weight: bold;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #9c72d0; /* Morado para el título */
-    font-family: "Coco Gothic", sans-serif;
-}
-
 /* .modal-body { */
 /* Estilos para el contenido del modal si son necesarios de forma general */
 /* } */
@@ -86,7 +86,7 @@
     width: 100%;
     padding: 12px 15px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-borde-input);
     border-radius: 8px; /* Bordes redondeados para inputs */
     box-sizing: border-box;
     font-family: "DM Sans", sans-serif;
@@ -98,7 +98,7 @@
 .modal-body input[type="password"]:focus,
 .modal-body select:focus {
     outline: none;
-    border-color: #fe971c; /* Naranja */
+    border-color: var(--color-morado-primario); /* Naranja */
     box-shadow: 0 0 0 2px rgba(254, 151, 28, 0.2);
 }
 
@@ -108,14 +108,28 @@
     margin-bottom: 15px;
 }
 
+.modal-label {
+    color: var(--color-texto-primario);
+
+    input {
+        background-color: var(--color-fondo-input);
+        border: 1px solid var(--color-borde-input);
+        margin-top: clamp(10px, 1vw, 15px);
+
+        &::placeholder {
+            color: var(--color-placeholder-input);
+        }
+    }
+}
+
 .modal-body .form-checkbox-container input[type="checkbox"] {
     margin-right: 10px;
     width: 18px;
     height: 18px;
-    accent-color: #9c72d0; /* Morado para el checkbox */
+    accent-color: var(--color-morado-primario); /* Morado para el checkbox */
 }
 .modal-body .form-checkbox-container label {
-    color: #333;
+    color: var(--color-texto-primario);
     font-family: "DM Sans", sans-serif;
 }
 
@@ -137,19 +151,21 @@
 }
 
 .modal-button-cancel {
-    background-color: #ff443a; /* Rojo mockup */
+    background-color: var(--color-rojo); /* Rojo mockup */
     color: white;
-}
-.modal-button-cancel:hover {
-    opacity: 0.85;
+
+    &:hover {
+        opacity: 0.85;
+    }
 }
 
 .modal-button-accept {
-    background-color: #8cc04e; /* Verde mockup */
+    background-color: var(--color-verde); /* Verde mockup */
     color: white;
-}
-.modal-button-accept:hover {
-    opacity: 0.85;
+
+    &:hover {
+        opacity: 0.85;
+    }
 }
 
 .modal-button:disabled {

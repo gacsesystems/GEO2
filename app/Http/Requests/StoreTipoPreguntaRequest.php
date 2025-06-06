@@ -10,7 +10,7 @@ class StoreTipoPreguntaRequest extends FormRequest
   public function authorize(): bool
   {
     // Sólo admin
-    return Auth::check() && Auth::user()->esRol('administrador');
+    return Auth::check() && Auth::user()->esRol('Administrador');
   }
 
   public function rules(): array

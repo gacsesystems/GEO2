@@ -10,7 +10,7 @@ class StoreUsuarioRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return Auth::check() && Auth::user()->esRol('administrador'); // Solo administradores
+        return Auth::check() && Auth::user()->esRol('Administrador'); // Solo administradores
     }
 
     public function rules(): array

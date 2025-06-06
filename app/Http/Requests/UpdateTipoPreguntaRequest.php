@@ -9,7 +9,7 @@ class UpdateTipoPreguntaRequest extends FormRequest
 {
   public function authorize(): bool
   {
-    return Auth::check() && Auth::user()->esRol('administrador');
+    return Auth::check() && Auth::user()->esRol('Administrador');
   }
 
   public function rules(): array

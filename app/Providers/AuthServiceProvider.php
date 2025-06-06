@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
     // Opcional: si quieres una regla global para administradores “full access”:
     Gate::before(function ($user, $ability) {
-      if ($user->esRol('administrador')) {
+      if ($user->esRol('Administrador')) {
         return true;
       }
     });
@@ -46,7 +46,7 @@ class AuthServiceProvider extends ServiceProvider
     // Aquí puedes definir Gates si necesitas lógica de autorización más granular
     // que no se ajuste bien a una Policy basada en modelo.
     // Gate::define('ver-panel-administracion', function (User $user) {
-    //     return $user->esRol('administrador');
+    //     return $user->esRol('Administrador');
     // });
 
     Gate::define('viewSwaggerUI', function ($user = null) {
@@ -54,11 +54,11 @@ class AuthServiceProvider extends ServiceProvider
 
       // Solo usuarios autenticados que sean administradores pueden ver Swagger
       // Si $user es null (no autenticado), esto devolverá false.
-      return $user && $user->esRol('administrador');
+      return $user && $user->esRol('Administrador');
       // O si quieres permitir a cualquier usuario autenticado:
       // return $user !== null;
       // O si quieres permitirlo en local pero no en producción:
-      // return app()->environment('local') || ($user && $user->esRol('administrador'));
+      // return app()->environment('local') || ($user && $user->esRol('Administrador'));
     });
   }
 }

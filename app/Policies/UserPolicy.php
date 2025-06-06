@@ -15,7 +15,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->esRol('administrador');
+        return $user->esRol('Administrador');
     }
 
     /**
@@ -24,7 +24,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool // $model es el usuario que se quiere ver
     {
-        if ($user->esRol('administrador')) {
+        if ($user->esRol('Administrador')) {
             return true;
         }
         return $user->id === $model->id;
@@ -36,7 +36,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->esRol('administrador');
+        return $user->esRol('Administrador');
     }
 
     /**
@@ -48,10 +48,10 @@ class UserPolicy
         // Un admin no puede editarse a sí mismo a través de este flujo general de "gestión de usuarios"
         // para evitar auto-bloqueo de rol o desactivación.
         // Si el admin quiere editar su propio perfil, debería haber una ruta/controlador específico.
-        // if ($user->id === $model->id && $user->esRol('administrador')) {
+        // if ($user->id === $model->id && $user->esRol('Administrador')) {
         //     return false; // Evitar que un admin se modifique a sí mismo en el CRUD de usuarios
         // }
-        return $user->esRol('administrador');
+        return $user->esRol('Administrador');
     }
 
     /**
@@ -63,7 +63,7 @@ class UserPolicy
         if ($user->id === $model->id) {
             return false; // No se puede auto-eliminar
         }
-        return $user->esRol('administrador');
+        return $user->esRol('Administrador');
     }
 
     /**
@@ -71,7 +71,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        return $user->esRol('administrador');
+        return $user->esRol('Administrador');
     }
 
     /**
@@ -79,6 +79,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        return $user->esRol('administrador');
+        return $user->esRol('Administrador');
     }
 }

@@ -16,7 +16,7 @@ class ClientePolicy
      */
     public function before(User $user, string $ability): ?bool
     {
-        if ($user->esRol('administrador'))  return true;
+        if ($user->esRol('Administrador'))  return true;
 
         return null; // Continuar con otros métodos para no administradores
     }

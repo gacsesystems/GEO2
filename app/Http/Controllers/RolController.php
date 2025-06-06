@@ -45,7 +45,7 @@ class RolController extends Controller
     {
         // Por ahora, cualquier usuario autenticado puede ver los roles para los selects,
         // pero podrías restringirlo a administradores si es necesario.
-        // if (!auth()->user()->esRol('administrador')) {
+        // if (!auth()->user()->esRol('Administrador')) {
         //     abort(403, 'No autorizado.');
         // }
         $roles = Role::orderBy('nombre_rol')->get();

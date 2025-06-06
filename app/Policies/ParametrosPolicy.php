@@ -12,7 +12,7 @@ class ParametrosPolicy
 
     public function before(User $user, string $ability): ?bool
     {
-        if ($user->esRol('administrador')) {
+        if ($user->esRol('Administrador')) {
             return true;
         }
         return null; // Denegar a no admins por defecto si no hay métodos más específicos

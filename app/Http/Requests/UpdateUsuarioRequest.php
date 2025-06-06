@@ -13,7 +13,7 @@ class UpdateUsuarioRequest extends FormRequest
     {
         // Un admin puede editar cualquier usuario.
         // Un usuario podría editar su propio perfil (lógica diferente aquí o en otro request).
-        return Auth::check() && Auth::user()->esRol('administrador');
+        return Auth::check() && Auth::user()->esRol('Administrador');
     }
 
     public function rules(): array

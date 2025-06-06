@@ -51,7 +51,7 @@ class OpcionPreguntaController extends Controller
     {
         $user = Auth::user();
         $encuesta = $pregunta->seccionEncuesta->encuesta;
-        if (!$user->esRol('administrador') && ($encuesta->id_cliente !== $user->id_cliente)) {
+        if (!$user->esRol('Administrador') && ($encuesta->id_cliente !== $user->id_cliente)) {
             abort(403, 'No autorizado para modificar las opciones de esta pregunta.');
         }
         if (!$pregunta->tipoPregunta?->requiere_opciones) {

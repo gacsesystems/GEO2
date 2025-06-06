@@ -15,7 +15,7 @@ class OpcionPreguntaPolicy
      */
     public function before(User $user, $ability)
     {
-        if ($user->esRol('administrador')) {
+        if ($user->esRol('Administrador')) {
             return true;
         }
     }

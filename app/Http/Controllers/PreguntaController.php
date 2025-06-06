@@ -39,7 +39,7 @@ class PreguntaController extends Controller
     {
         $user = Auth::user();
         $encuesta = $seccion->encuesta; // Asume que la relación está disponible
-        if (!$user->esRol('administrador') && ($encuesta->id_cliente !== $user->id_cliente)) {
+        if (!$user->esRol('Administrador') && ($encuesta->id_cliente !== $user->id_cliente)) {
             abort(403, 'No autorizado para modificar esta encuesta.');
         }
     }

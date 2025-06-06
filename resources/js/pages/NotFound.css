@@ -5,11 +5,12 @@
     h2 {
         font-size: 2rem;
         margin-bottom: 1rem;
+        color: var(--color-texto-primario);
     }
 
     p {
         margin-bottom: 2rem;
-        color: #555;
+        color: var(--color-texto-secundario);
     }
 
     .btn {

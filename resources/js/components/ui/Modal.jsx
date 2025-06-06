@@ -1,22 +1,6 @@
 import React from "react";
 import "./Modal.css";
-
-const CloseIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="modal-close-icon-svg"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-        />
-    </svg>
-);
+import { CloseIcon } from "./Icons";
 
 const Modal = ({ isOpen, onClose, children, title }) => {
     if (!isOpen) return null;
