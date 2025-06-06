@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { axios } from "../../bootstrap";
 import Modal from "../../components/ui/Modal";
 import { PlusIcon, PencilIcon, TrashIcon } from "../../components/ui/Icons";
-import "./GestionUsuariosPage.css";
+import "./GestionUsuarios.css";
 import CardTable from "../../components/layout/CardTable";
 
-export default function GestionUsuariosPage() {
+export default function GestionUsuarios() {
     // --- Estados generales ---
     const [usuarios, setUsuarios] = useState([]);
     const [roles, setRoles] = useState([]);

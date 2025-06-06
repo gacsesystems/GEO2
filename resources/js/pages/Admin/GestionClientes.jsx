@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { axios } from "../../bootstrap";
 import Modal from "../../components/ui/Modal";
-import "./GestionClientesPage.css";
+import "./GestionClientes.css";
 import { PlusIcon, PencilIcon, TrashIcon } from "../../components/ui/Icons";
 
-export default function GestionClientesPage() {
+export default function GestionClientes() {
     // Estados para listado
     const [clientes, setClientes] = useState([]);
     const [clientesFiltrados, setClientesFiltrados] = useState([]);

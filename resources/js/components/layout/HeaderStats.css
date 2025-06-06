@@ -1,0 +1,11 @@
+.header-stats-container {
+    padding: 20px; /* Espacio debajo de las tarjetas de estadísticas */
+    /* background-color: #9C72D0; /* Podría tener un fondo si quieres como en Notus */
+    /* padding-top: 20px; */
+}
+
+.header-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}

@@ -5,9 +5,9 @@ import { useAuth } from "./contexts/AuthContext";
 import Login from "./pages/Auth/Login";
 // import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
 
-// import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
-import GestionClientesPage from "./pages/Admin/GestionClientesPage";
-import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import GestionClientes from "./pages/Admin/GestionClientes";
+import GestionUsuarios from "./pages/Admin/GestionUsuarios";
 
 // import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage";
 // import GestionEncuestasPage from "./pages/Cliente/GestionEncuestasPage";
@@ -142,18 +142,9 @@ export default function AppRoutes() {
             <Route
                 element={<ProtectedRoute rolesPermitidos={["Administrador"]} />}
             >
-                <Route
-                    path="/admin/dashboard"
-                    // element={<AdminDashboardPage />}
-                />
-                <Route
-                    path="/admin/clientes"
-                    element={<GestionClientesPage />}
-                />
-                <Route
-                    path="/admin/usuarios"
-                    element={<GestionUsuariosPage />}
-                />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/clientes" element={<GestionClientes />} />
+                <Route path="/admin/usuarios" element={<GestionUsuarios />} />
                 {/* ...otras rutas de admin anidadas aquí... */}
             </Route>
 
