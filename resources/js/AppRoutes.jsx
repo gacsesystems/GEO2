@@ -7,7 +7,7 @@ import Login from "./pages/Auth/Login";
 
 // import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
 import GestionClientesPage from "./pages/Admin/GestionClientesPage";
-// import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
+import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
 
 // import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage";
 // import GestionEncuestasPage from "./pages/Cliente/GestionEncuestasPage";
@@ -150,7 +150,10 @@ export default function AppRoutes() {
                     path="/admin/clientes"
                     element={<GestionClientesPage />}
                 />
-                <Route path="/admin/usuarios" element={<NotFound />} />
+                <Route
+                    path="/admin/usuarios"
+                    element={<GestionUsuariosPage />}
+                />
                 {/* ...otras rutas de admin anidadas aquí... */}
             </Route>
 
