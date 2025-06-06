@@ -1,0 +1,17 @@
+.encuesta-list {
+    list-style: none;
+    margin-top: 1rem;
+
+    li {
+        margin-bottom: 0.5rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0066cc;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

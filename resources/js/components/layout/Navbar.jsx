@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import "./Navbar.css";
+import { useCurrentLogo } from "../../hooks/useCurrentLogo";
+
+// Importa los iconos SVG (pueden ser componentes o <img> según tu implementación)
 import {
     UsersIcon,
     ClientsIcon,
@@ -11,26 +13,31 @@ import {
     HomeIcon,
 } from "../ui/Icons";
 
-function Navbar() {
-    const { isAuthenticated, user, logout } = useAuth();
+import "./Navbar.css"; // Tus estilos personalizados
+
+export default function Navbar() {
+    const { user, isAuthenticated, logout, loading } = useAuth();
     const navigate = useNavigate();
+    const LogoActual = useCurrentLogo();
+
+    // Si aún se está verificando el estado de autenticación, no renderizamos nada
+    if (loading) return null;
+
+    // Si no hay usuario autenticado, ocultamos el navbar
+    if (!isAuthenticated || !user) return null;
+
+    const isAdmin = user.rol === "Administrador",
+        isCliente = user.rol === "Cliente";
 
     const handleLogout = async () => {
         try {
             await logout();
-            navigate("/login"); // Redirige a login después del logout
+            navigate("/login", { replace: true });
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
-            // Manejar error de logout si es necesario
+            //Todo: Puedes mostrar toast o mensaje de error aquí si lo deseas
         }
     };
-
-    if (!isAuthenticated) {
-        return null; // No mostrar navbar si no está autenticado (o mostrar una versión para login/register)
-    }
-
-    const isAdmin = user?.rol === "Administrador";
-    const isCliente = user?.rol === "Cliente";
 
     return (
         <>
@@ -40,71 +47,97 @@ function Navbar() {
                         to={isAdmin ? "/admin/dashboard" : "/cliente/dashboard"}
                         className="navbar-logo"
                     >
-                        {/* Aquí usamos la imagen del logo */}
                         <img
-                            src="/img/logo-gsystems.png"
-                            alt="AppEncuestas Logo"
+                            src={LogoActual}
+                            alt="Logo GEO Encuestas"
                             className="navbar-logo-image"
                         />
-                        {/* Opcionalmente, puedes mantener el texto si quieres que aparezca al lado o como fallback */}
-                        {/* <span className="navbar-logo-text">AppEncuestas</span> */}
                         <span className="navbar-logo-text">GEO</span>
                     </Link>
                 </div>
+
                 <ul className="navbar-links">
                     {isAdmin && (
                         <>
                             <li>
-                                <NavLink to="/admin/dashboard">
+                                <NavLink
+                                    to="/admin/dashboard"
+                                    className={({ isActive }) =>
+                                        isActive ? "active-link" : undefined
+                                    }
+                                >
                                     Dashboard
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/admin/clientes">
-                                    <ClientsIcon /> Clientes
+                                <NavLink
+                                    to="/admin/clientes"
+                                    className={({ isActive }) =>
+                                        isActive ? "active-link" : undefined
+                                    }
+                                >
+                                    <ClientsIcon className="icon-inline" />{" "}
+                                    Clientes
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/admin/usuarios">
-                                    <UsersIcon /> Usuarios
+                                <NavLink
+                                    to="/admin/usuarios"
+                                    className={({ isActive }) =>
+                                        isActive ? "active-link" : undefined
+                                    }
+                                >
+                                    <UsersIcon className="icon-inline" />{" "}
+                                    Usuarios
                                 </NavLink>
                             </li>
-                            {/* Puedes añadir más links de admin aquí, ej: Configuración */}
+                            {/* Añade aquí más enlaces de admin si gustas */}
                         </>
                     )}
+
                     {isCliente && (
                         <>
                             <li>
-                                <NavLink to="/cliente/dashboard">
+                                <NavLink
+                                    to="/cliente/dashboard"
+                                    className={({ isActive }) =>
+                                        isActive ? "active-link" : undefined
+                                    }
+                                >
                                     Dashboard
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/cliente/encuestas">
-                                    <SurveyIcon /> Mis Encuestas
+                                <NavLink
+                                    to="/cliente/encuestas"
+                                    className={({ isActive }) =>
+                                        isActive ? "active-link" : undefined
+                                    }
+                                >
+                                    <SurveyIcon className="icon-inline" /> Mis
+                                    Encuestas
                                 </NavLink>
                             </li>
-                            {/* Links a "Nueva Encuesta", "Perfil" etc. */}
+                            {/* Si luego agregas “Nueva Encuesta” u otras rutas de cliente, van aquí */}
                         </>
                     )}
                 </ul>
+
                 <div className="navbar-user-section">
-                    {user && (
-                        <span className="user-greeting">
-                            Hola, {user.name || user.email}
-                        </span>
-                    )}
+                    <span className="user-greeting">
+                        Hola, {user.nombre_completo || user.email}
+                    </span>
                     <button onClick={handleLogout} className="logout-button">
-                        <LogoutIcon />
-                        {/* Opcionalmente: <LogoutIcon className="custom-svg-class" /> */}
+                        <LogoutIcon className="icon-inline" />
                         Cerrar Sesión
                     </button>
                 </div>
             </nav>
-            {/* Alerta de verificación de correo */}
+
+            {/* Alerta de correo no verificado (solo si el usuario está autenticado) */}
             {isAuthenticated && user && !user.email_verified_at && (
                 <div className="email-verification-alert">
-                    <AlertIcon />
+                    <AlertIcon className="icon-inline" />
                     <span>Tu correo electrónico no ha sido verificado.</span>
                     <Link
                         to="/verifica-tu-correo"
@@ -112,11 +145,8 @@ function Navbar() {
                     >
                         Verifica ahora
                     </Link>
-                    {/* Podrías añadir un botón para reenviar el correo aquí */}
                 </div>
             )}
         </>
     );
 }
-
-export default Navbar;

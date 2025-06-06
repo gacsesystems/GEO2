@@ -1,17 +1,20 @@
-import "./bootstrap";
 import React from "react";
+import "../css/app.css"; // Estilos globales
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import App from "./app";
-import "../css/app.css";
+import "./bootstrap";
 
-createRoot(document.getElementById("app")).render(
-    // <React.StrictMode>
-    <BrowserRouter>
-        <AuthProvider>
-            <App />
-        </AuthProvider>
-    </BrowserRouter>
-    // </React.StrictMode>
+const container = document.getElementById("app");
+const root = createRoot(container);
+
+root.render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </BrowserRouter>
+    </React.StrictMode>
 );

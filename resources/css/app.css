@@ -1,136 +1,40 @@
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    color: #000;
+    background-color: #fff;
+
+    --color-morado-primario: #9d39bf;
+    --color-morado-secundario: #9c72d0;
+    --color-morado-terciario: #d7daff;
+
+    --color-naranja-primario: #fdd673;
+    --color-naranja-secundario: #fe971c;
+    --color-naranja-terciario: #ffecde;
+
+    --color-rojo: #ff443a;
+    --color-verde: #8cc04e;
+
+    /* Colores principales de la UI (los que cambiarán en dark mode) */
+    --color-texto-primario: #000; /* Para la mayoría del texto, como labels */
+    --color-fondo-contenedor: #f2f2f2; /* Fondo del .login-form-container */
+    --color-texto-secundario: #777; /* Para "Olvidaste contraseña" y otros grises */
+    --color-borde-input: #ccc; /* Borde de los inputs */
+    --color-fondo-input: #fff; /* Fondo de los inputs */
+    --color-texto-input: #212529; /* Color del texto dentro de los inputs */
+    --color-placeholder-input: #6c757d; /* Color del placeholder */
+    --color-sombra-formulario: rgba(0 0 0 / 0.1); /* Sombra del formulario */
+    /* Colores de acento (se mantendrán igual en dark mode, según tu petición) */
+    --color-acento-naranja-hover: #e08008;
 }
 
+/* Reseteo mínimo */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-}
-a:hover {
-    color: #535bf2;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.titulo-principal {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.formulario-cliente {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 1.2rem;
-    margin: 20px 0;
-
-    input {
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #000;
-        font-size: 1rem;
-    }
-
-    .checkbox-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-
-        input {
-            width: 20px;
-            height: 20px;
-        }
-
-        label {
-            font-size: 1rem;
-        }
-    }
-
-    button {
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #000;
-        font-size: 1rem;
-    }
-}
-
-.lista-clientes {
-    list-style: none;
-    padding: 0;
-
-    li {
-        margin-bottom: 10px;
-        border: 1px solid #000;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #f0f0f0;
-        color: #000;
-    }
-}
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
-button:hover {
-    border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-    a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
-    }
-}
 @font-face {
     font-family: "Coco Gothic";
     src: url("/fonts/CocoGothic-Regular.woff2") format("woff2"),
@@ -166,86 +70,106 @@ button:focus-visible {
     font-display: swap;
 }
 
-/* Añade otras variantes de DM Sans (Light, etc.) si las necesitas */
-
-/* Reseteo básico o normalización (opcional, pero recomendado) */
+html,
 body,
-h1,
-h2,
-h3,
-p,
-ul,
-li,
-button,
-input,
-form {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Comportamiento de caja más predecible */
-}
-
-body {
-    font-family: "DM Sans", sans-serif; /* Fuente base por defecto */
-    background-color: #f8f9fa; /* Un gris muy claro para el fondo general */
-    color: #343a40; /* Color de texto base oscuro */
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased; /* Mejor renderizado de fuentes en WebKit */
-    -moz-osx-font-smoothing: grayscale; /* Mejor renderizado de fuentes en Firefox */
-}
-
-/* Estilos para el loader global de la app y de ProtectedRoute */
-.app-loading-screen,
-.loading-fullscreen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5; /* Similar al fondo de login */
+#app {
+    height: 100%;
     font-family: "DM Sans", sans-serif;
-    color: #555;
-    font-size: 1.1rem;
+    color: #333;
 }
 
-.spinner {
-    border: 4px solid rgba(156, 114, 208, 0.2); /* Morado claro */
-    border-left-color: #9c72d0; /* Morado oscuro */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin-bottom: 15px;
-}
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+    &:hover {
+        color: #535bf2;
     }
 }
 
-/* Importar otros archivos CSS específicos (si no lo haces en cada JSX) */
-/* Si prefieres importar todo aquí en lugar de en cada archivo JSX: */
-/* @import url('./pages/Auth/LoginPage.css'); */
-/* @import url('./components/ui/Modal.css'); */
-/* @import url('./pages/Admin/GestionClientesPage.css'); */
-/* @import url('./pages/Admin/AdminDashboardPage.css'); */
-/* @import url('./pages/PlaceholderPage.css'); */
-
-/* Estilos de utilidad generales (si los necesitas) */
 .container {
-    width: 90%;
-    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 0;
+}
+/* Formularios */
+.input-group {
+    margin-bottom: 1rem;
+
+    .input-label {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 500;
+    }
+
+    .input-required {
+        color: red;
+        margin-left: 0.2rem;
+    }
 }
 
-.main-content {
-    padding-top: 70px; /* Altura de tu navbar para que el contenido no se oculte detrás */
-    /* Si tienes la alerta de verificación, necesitarás más padding cuando esté visible */
-    /* Esto se puede manejar con JavaScript o clases condicionales */
+.input-text,
+.select-opciones {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+.select-opciones {
+    background: #fff;
+    appearance: none;
 }
 
-.email-verification-alert + .main-content {
-    /* Si la alerta está presente */
-    padding-top: calc(70px + 45px); /* Altura navbar + altura aprox. alerta */
+.btn {
+    background: #0066cc;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:hover {
+        background: #005bb5;
+    }
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+
+    &:hover {
+        border-color: #646cff;
+    }
+
+    &:focus,
+    &:focus-visible {
+        outline: 4px auto -webkit-focus-ring-color;
+    }
+}
+@media (prefers-color-scheme: dark) {
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Colores principales de la UI - Versión Oscura */
+        --color-texto-primario: #e0e0e0; /* Blanco hueso para texto principal */
+        --color-fondo-contenedor: #2c2f3b; /* Gris oscuro azulado para fondo de formulario */
+        --color-texto-secundario: #a0a8b8; /* Gris claro azulado para texto secundario */
+        --color-borde-input: #505762; /* Borde de input más oscuro */
+        --color-fondo-input: #3b4252; /* Fondo de input oscuro */
+        --color-texto-input: #e0e0e0; /* Texto claro dentro de los inputs */
+        --color-placeholder-input: #8892a0; /* Placeholder más claro */
+        --color-sombra-formulario: rgb(0 0 0 / 0.4);
+
+        color: #e0e0e0;
+        background-color: #2c2f3b;
+    }
 }

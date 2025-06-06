@@ -17,14 +17,31 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $m) {
-        $m->use([
-            HandleCors::class, // 1) Registra CORS de Fruitcake a nivel global
-            // 2) Registrar los middleware “imprescindibles” que antes estaban en app/Http/Kernel.php
-            TrustProxies::class, // a) TrustProxies (para detectar correctamente IPs al usar proxys/reverse proxies)
-            ValidatePostSize::class, // b) ValidatePostSize (limita tamaño máximo de POST según configuración)
-            PreventRequestsDuringMaintenance::class, // c) PreventRequestsDuringMaintenance (mostrar página de “mantenimiento” si está activa)
-            ConvertEmptyStringsToNull::class, // d) ConvertEmptyStringsToNull (convierte campos vacíos a null automáticamente)
-        ]);
+        // $m->use([
+        //     HandleCors::class, // 1) Registra CORS de Fruitcake a nivel global
+        //     // 2) Registrar los middleware “imprescindibles” que antes estaban en app/Http/Kernel.php
+        //     TrustProxies::class, // a) TrustProxies (para detectar correctamente IPs al usar proxys/reverse proxies)
+        //     ValidatePostSize::class, // b) ValidatePostSize (limita tamaño máximo de POST según configuración)
+        //     PreventRequestsDuringMaintenance::class, // c) PreventRequestsDuringMaintenance (mostrar página de “mantenimiento” si está activa)
+        //     ConvertEmptyStringsToNull::class, // d) ConvertEmptyStringsToNull (convierte campos vacíos a null automáticamente)
+        // ]);
+
+        //
+        // 1) Registrar CORS como middleware GLOBAL
+        //    Para Laravel 12, se utiliza appendToGroup o prependToGroup en 
+        //    lugar de un método “add” directo.
+        //
+        // Agrega HandleCors al grupo “web” y al grupo “api”:
+        $m->prependToGroup('web', HandleCors::class);
+        $m->prependToGroup('api', HandleCors::class);
+
+        //
+        // 2) Otros middleware globales (mantente como los tenías)
+        //
+        $m->prependToGroup('web', TrustProxies::class);
+        $m->prependToGroup('web', ValidatePostSize::class);
+        $m->prependToGroup('web', PreventRequestsDuringMaintenance::class);
+        $m->prependToGroup('web', ConvertEmptyStringsToNull::class);
 
         //    statefulApi() == añade \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful
         //    a las rutas que usen el middleware “api” (antes se hacía en el Kernel).

@@ -1,34 +1,22 @@
-const API_BASE_URL = "/api/encuestas";
+import { axios } from "../bootstrap";
 
-export const encuestaService = {
-    // Para el cliente, usualmente obtendrán sus propias encuestas.
-    // El backend (EncuestaPolicy) debería filtrar esto automáticamente
-    // si el usuario no es admin.
-    getMisEncuestas: (params = {}) => {
-        return window.axios.get(`${API_BASE_URL}`, { params }); // GET /api/encuestas
-    },
-    create: (data) => {
-        return window.axios.post(`${API_BASE_URL}`, data); // POST /api/encuestas
-    },
-    getById: (idEncuesta) => {
-        return window.axios.get(`${API_BASE_URL}/${idEncuesta}`); // GET /api/encuestas/{encuesta}
-    },
-    getDetalleCompleto: (idEncuesta) => {
-        return window.axios.get(
-            `${API_BASE_URL}/${idEncuesta}/detalle-completo`
-        );
-    },
-    update: (idEncuesta, data) => {
-        return window.axios.put(`${API_BASE_URL}/${idEncuesta}`, data);
-    },
-    remove: (idEncuesta) => {
-        return window.axios.delete(`${API_BASE_URL}/${idEncuesta}`);
-    },
-    generarUrl: (idEncuesta) => {
-        return window.axios.post(`${API_BASE_URL}/${idEncuesta}/generar-url`);
-    },
-    // Si necesitas un endpoint específico para encuestas de un cliente (usado por admin):
-    // getPorCliente: (idCliente) => {
-    //     return window.axios.get(`${API_BASE_URL}/por-cliente/${idCliente}`);
-    // }
-};
+/**
+ * Obtiene la lista de encuestas del usuario (admin o cliente).
+ * @returns {Promise<Array>}
+ */
+export async function fetchEncuestas() {
+    const { data } = await axios.get("/encuestas");
+    return data.data; // Asumiendo que la API devuelve { data: [...] }
+}
+
+/**
+ * Obtiene el detalle completo de una encuesta por ID.
+ * @param {number} idEnc
+ * @returns {Promise<Object>}
+ */
+export async function fetchEncuestaDetalle(idEnc) {
+    const { data } = await axios.get(`/encuestas/${idEnc}/detalle-completo`);
+    return data.data;
+}
+
+// Otros métodos: crearEncuesta, actualizarEncuesta, eliminarEncuesta...

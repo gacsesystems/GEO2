@@ -1,0 +1,27 @@
+.not-found {
+    text-align: center;
+    margin-top: 4rem;
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin-bottom: 2rem;
+        color: #555;
+    }
+
+    .btn {
+        display: inline-block;
+        background: #0066cc;
+        color: #fff;
+        padding: 0.6rem 1.2rem;
+        border-radius: 3px;
+        text-decoration: none;
+
+        &:hover {
+            background: #005bb5;
+        }
+    }
+}

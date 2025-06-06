@@ -1,4 +1,5 @@
 .main-navbar {
+    background-color: #fff; /* Fondo blanco como en el mockup del contenido */
     padding: 0 25px; /* Ajusta el padding horizontal */
     display: flex;
     align-items: center;
@@ -9,11 +10,11 @@
     position: sticky; /* Para que se quede fija arriba al hacer scroll */
     top: 0;
     z-index: 900; /* Menor que el modal overlay */
+}
 
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-    }
+.navbar-brand {
+    display: flex;
+    align-items: center;
 }
 
 .navbar-logo {
@@ -24,11 +25,10 @@
 
 .navbar-logo-text {
     /* Estilo para el texto si decides mantenerlo */
-    color: var(--color-morado-primario); /* Morado principal */
+    color: #9c72d0; /* Morado principal */
     font-family: "Coco Gothic", sans-serif;
     font-size: 1.4rem;
     font-weight: bold;
-    margin-left: 10px;
 }
 
 .navbar-logo-image {
@@ -60,7 +60,7 @@
     align-items: center;
     padding: 10px 15px; /* Aumentar padding para mejor clickeabilidad */
     text-decoration: none;
-    color: var(--color-texto-primario); /* Color de texto para links */
+    color: #555; /* Color de texto para links */
     font-weight: 500; /* Un poco más de peso */
     font-size: 0.95rem;
     border-radius: 6px; /* Bordes redondeados sutiles para los links */
@@ -75,14 +75,12 @@
 
 .navbar-links li a:hover {
     background-color: #f0eaff; /* Fondo morado muy claro al pasar el mouse */
-    color: var(
-        --color-morado-primario
-    ); /* Color de texto morado al pasar el mouse */
+    color: #9c72d0; /* Color de texto morado al pasar el mouse */
 }
 
 .navbar-links li a.active {
     /* Estilo para el link activo con NavLink */
-    background-color: var(--color-morado-primario); /* Morado principal */
+    background-color: #9c72d0; /* Morado principal */
     color: white;
     font-weight: bold;
 }
@@ -98,13 +96,13 @@
 
 .user-greeting {
     font-size: 0.9rem;
-    color: var(--color-texto-secundario);
+    color: #777;
 }
 
 .logout-button {
     background-color: transparent; /* O un color sutil */
-    color: var(--color-morado-primario); /* Morado para el texto/icono */
-    border: 1px solid var(--color-morado-primario); /* Borde morado */
+    color: #9c72d0; /* Morado para el texto/icono */
+    border: 1px solid #9c72d0; /* Borde morado */
     padding: 8px 15px;
     border-radius: 20px; /* Bordes redondeados */
     cursor: pointer;
@@ -126,7 +124,7 @@
 }
 
 .logout-button:hover {
-    background-color: var(--color-morado-primario);
+    background-color: #9c72d0;
     color: white;
 }
 

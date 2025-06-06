@@ -1,199 +1,195 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
+// Pages
+import Login from "./pages/Auth/Login";
+// import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
 
-import LoginPage from "./pages/Auth/LoginPage";
-// import RegisterPage from "./pages/Auth/RegisterPage"; // Crear después
+// import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
+// import GestionClientesPage from "./pages/Admin/GestionClientesPage";
+// import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
 
-import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
-import GestionClientesPage from "./pages/Admin/GestionClientesPage";
-// import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage"; // Crear después
+// import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage";
+// import GestionEncuestasPage from "./pages/Cliente/GestionEncuestasPage";
+// import DiseñadorEncuestaPage from "./pages/Cliente/DiseñadorEncuestaPage";
 
-// import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage"; // Crear después
-// import GestionEncuestasPage from "./pages/Cliente/GestionEncuestasPage"; // Crear después
+// import EncuestaPublicaPage from "./pages/Public/EncuestaPublicaPage";
+// import RespuestaPublicaPage from "./pages/Public/RespuestaPublicaPage";
 
-// import EncuestaPublicaPage from "./pages/Public/EncuestaPublicaPage"; // Crear después
-// import HomePage from "./pages/HomePage"; // Crear después
-// import NotFoundPage from "./pages/NotFoundPage"; // Crear después
-import ProtectedRoute from "./components/common/ProtectedRoute";
-import PlaceholderPage from "./pages/PlaceholderPage"; // Para páginas no creadas
-import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
-import AdminLayout from "./components/layout/AdminLayout";
-import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage";
-import DiseñadorEncuestaPage from "./pages/Cliente/DiseñadorEncuestaPage";
+import NotFound from "./pages/NotFound";
 
-function AppRoutes() {
-    const { isAuthenticated, user, isLoading } = useAuth();
+// Un componente para mostrar mientras AuthContext está validando
+function LoadingScreen() {
+    return (
+        <div className="app-loading-screen">
+            <div className="spinner"></div>
+            <p>Cargando aplicación...</p>
+        </div>
+    );
+}
 
-    if (isLoading) {
-        return (
-            <div className="app-loading-screen">
-                {" "}
-                {/* Clase para estilizar el loader */}
-                <div className="spinner"></div>
-                <p>Cargando aplicación...</p>
-            </div>
-        );
+/**
+ * ProtectedRoute:
+ * - Si loading=true, muestra pantalla de carga.
+ * - Si no está autenticado, redirige a /login.
+ * - Si se especifica `rolesPermitidos`, revisa user.rol en el contexto.
+ * - Si se especifica `requireVerifiedEmail`, revisa user.email_verified_at.
+ */
+function ProtectedRoute({ rolesPermitidos = [], requireVerifiedEmail = true }) {
+    const { isAuthenticated, user, loading } = useAuth();
+
+    if (loading) return <LoadingScreen />; // Si loading=true, muestra pantalla de carga.
+
+    if (!isAuthenticated) return <Navigate to="/login" replace />; // Si no está autenticado, redirige a /login
+
+    // Si requiere email verificado y no lo está
+    if (requireVerifiedEmail && !user.email_verified_at) {
+        return <Navigate to="/verifica-tu-correo" replace />;
     }
 
+    // Si se piden roles específicos y el usuario no coincide
+    if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(user.rol)) {
+        return <Navigate to="/login" replace />;
+    }
+
+    // Todo OK: renderizar la ruta hija
+    return <Outlet />;
+}
+
+export default function AppRoutes() {
+    const { isAuthenticated, user, loading } = useAuth();
+
+    if (loading) {
+        // En teoría, ProtectedRoute ya muestra LoadingScreen, pero aquí cubrimos el caso general
+        return <LoadingScreen />;
+    }
+
+    // Si el usuario está autenticado, definimos un redirect genérico al dashboard por rol
     const getRedirectPath = () => {
         if (!isAuthenticated) return "/login";
-        return user?.rol === "Administrador"
+        return user.rol === "Administrador"
             ? "/admin/dashboard"
             : "/cliente/dashboard";
     };
 
     return (
         <Routes>
-            {/* RUTAS PÚBLICAS O QUE MANEJAN AUTENTICACIÓN */}
+            {/* 1) RUTAS PÚBLICAS / AUTENTICACIÓN */}
             <Route
                 path="/login"
                 element={
                     isAuthenticated ? (
                         <Navigate to={getRedirectPath()} replace />
                     ) : (
-                        <LoginPage />
+                        <Login />
                     )
                 }
             />
             <Route
-                path="/register" // Asumiendo que tendrás una página de registro eventualmente
+                path="/verifica-tu-correo"
                 element={
                     isAuthenticated ? (
-                        <Navigate to={getRedirectPath()} replace />
-                    ) : (
-                        <PlaceholderPage pageName="Registro de Usuario" />
-                    )
-                }
-            />
-
-            {/* RUTA RAÍZ */}
-            <Route
-                path="/"
-                element={
-                    isAuthenticated ? (
-                        <Navigate to="/dashboard" replace /> // Redirige a un dashboard genérico que luego redirige por rol
+                        user.email_verified_at ? (
+                            <Navigate to={getRedirectPath()} replace />
+                        ) : (
+                            {
+                                /* <VerificaCorreoPage /> */
+                            }
+                        )
                     ) : (
                         <Navigate to="/login" replace />
                     )
                 }
             />
 
-            {/* RUTA DE DASHBOARD GENÉRICO (PROTEGIDA) */}
-            {/* Esta ruta requiere autenticación pero no necesariamente verificación de correo aún,
-                ya que su único propósito es redirigir. */}
+            {/* Cuando Laravel envíe al usuario tras verificar correo a /email-verificado-exitosamente */}
+            <Route
+                path="/email-verificado-exitosamente"
+                // element={<VerificaCorreoPage />}
+            />
+            <Route
+                path="/email-already-verified"
+                // element={<VerificaCorreoPage />}
+            />
+
+            {/* 2) RUTA RAÍZ */}
+            <Route
+                path="/"
+                element={
+                    isAuthenticated ? (
+                        <Navigate to="/dashboard" replace />
+                    ) : (
+                        <Navigate to="/login" replace />
+                    )
+                }
+            />
+
+            {/* 3) DASHBOARD REDIRECTOR */}
             <Route element={<ProtectedRoute requireVerifiedEmail={false} />}>
                 <Route
                     path="/dashboard"
                     element={
                         user?.rol === "Administrador" ? (
                             <Navigate to="/admin/dashboard" replace />
-                        ) : user?.rol === "Cliente" ? (
-                            <Navigate to="/cliente/dashboard" replace />
                         ) : (
-                            // Si el rol no es reconocido o el usuario es null (aunque no debería serlo aquí)
-                            <Navigate to="/login" replace />
+                            <Navigate to="/cliente/dashboard" replace />
                         )
                     }
                 />
             </Route>
 
-            {/* --- RUTAS DE ADMINISTRADOR --- */}
-            {/* Estas rutas requieren autenticación, rol de Administrador Y correo verificado */}
-            <Route element={<AdminLayout />}>
-                <Route
-                    element={
-                        <ProtectedRoute
-                            rolesPermitidos={["Administrador"]}
-                            requireVerifiedEmail={true} // <--- Protección de correo verificado
-                        />
-                    }
-                >
-                    <Route
-                        path="/admin/dashboard"
-                        element={<AdminDashboardPage />}
-                    />
-                    <Route
-                        path="/admin/clientes"
-                        element={<GestionClientesPage />}
-                    />
-                    <Route
-                        path="/admin/usuarios"
-                        element={<GestionUsuariosPage />}
-                    />
-                    {/* Añade más rutas de admin aquí dentro si todas requieren la misma protección */}
-                </Route>
-            </Route>
-
-            {/* --- RUTAS DE CLIENTE --- */}
-            {/* Estas rutas requieren autenticación, rol de Cliente Y correo verificado */}
+            {/* 4) RUTAS ADMINISTRADOR */}
             <Route
-                element={
-                    <ProtectedRoute
-                        rolesPermitidos={["Cliente"]}
-                        requireVerifiedEmail={true} // <--- Protección de correo verificado
-                    />
-                }
+                element={<ProtectedRoute rolesPermitidos={["Administrador"]} />}
             >
                 <Route
+                    path="/admin/dashboard"
+                    // element={<AdminDashboardPage />}
+                />
+                <Route
+                    path="/admin/clientes"
+                    // element={<GestionClientesPage />}
+                />
+                <Route
+                    path="/admin/usuarios"
+                    // element={<GestionUsuariosPage />}
+                />
+                {/* ...otras rutas de admin anidadas aquí... */}
+            </Route>
+
+            {/* 5) RUTAS CLIENTE */}
+            <Route element={<ProtectedRoute rolesPermitidos={["Cliente"]} />}>
+                <Route
                     path="/cliente/dashboard"
-                    element={<PlaceholderPage pageName="Dashboard Cliente" />}
+                    // element={<ClienteDashboardPage />}
                 />
                 <Route
                     path="/cliente/encuestas"
-                    element={
-                        <PlaceholderPage pageName="Gestión de Encuestas (Cliente)" />
-                    }
+                    // element={<GestionEncuestasPage />}
                 />
                 <Route
                     path="/cliente/encuestas/:idEncuesta/disenar"
-                    element={
-                        <PlaceholderPage pageName="Diseñador de Encuesta" />
-                    }
+                    // element={<DiseñadorEncuestaPage />}
                 />
-                <Route
-                    path="/cliente/encuestas/:idEncuesta/reportes"
-                    element={
-                        <PlaceholderPage pageName="Reportes de Encuesta" />
-                    }
-                />
-                <Route
-                    path="/cliente/encuestas/:idEncuesta/disenar"
-                    element={<DiseñadorEncuestaPage />}
-                />
-                {/* Añade más rutas de cliente aquí dentro */}
+                {/* ...otras rutas de cliente... */}
             </Route>
 
-            {/* --- RUTA DE VERIFICACIÓN DE CORREO --- */}
-            {/* Esta ruta solo requiere autenticación (para saber QUIÉN está intentando reenviar),
-                NO requiere que el email ya esté verificado. */}
-            <Route element={<ProtectedRoute requireVerifiedEmail={false} />}>
-                <Route
-                    path="/verifica-tu-correo"
-                    element={<VerificaCorreoPage />}
-                />
-            </Route>
-
-            {/* RUTAS DE RESULTADO DE VERIFICACIÓN (públicas en el sentido de acceso, pero el usuario estará logueado) */}
-            {/* Laravel redirigirá aquí. VerificaCorreoPage manejará el mensaje. */}
+            {/* 6) RUTAS PÚBLICAS DE ENCUESTAS/RESPUESTAS */}
             <Route
-                path="/email-verificado-exitosamente"
-                element={<VerificaCorreoPage />}
+                path="/encuestas/publica/:idEncuesta"
+                // element={<EncuestaPublicaPage />}
             />
             <Route
-                path="/email-already-verified"
-                element={<VerificaCorreoPage />}
+                path="/encuestas/publica/code/:codigoUrl"
+                // element={<EncuestaPublicaPage />}
+            />
+            <Route
+                path="/encuestas/:encuestaId/respuestas/:respondidaId"
+                // element={<RespuestaPublicaPage />}
             />
 
-            {/* RUTA CATCH-ALL PARA 404 */}
-            <Route
-                path="*"
-                element={
-                    <PlaceholderPage pageName="404 - Página no Encontrada" />
-                }
-            />
+            {/* 7) CUALQUIER OTRA RUTA → 404 */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }
-
-export default AppRoutes;

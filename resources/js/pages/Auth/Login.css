@@ -1,0 +1,117 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("/img/encuesta_background.gif") no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    /* max-width: 320px; */
+
+    .login-form-container {
+        background-color: var(--color-fondo-contenedor);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px var(--color-sombra-formulario);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        position: relative; /* Para el icono de home opcional */
+
+        label {
+            color: var(--color-texto-primario);
+            margin-bottom: 50px;
+        }
+
+        .login-title {
+            color: var(--color-morado-primario); /* Morado */
+            font-weight: bold;
+            font-size: clamp(2.5rem, 3vw, 3rem);
+            font-family: "Coco Gothic", sans-serif;
+        }
+
+        .login-subtitle {
+            color: var(--color-morado-primario);
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .login-logo {
+            width: auto;
+            height: 85px;
+            margin-bottom: clamp(5px, 1vw, 15px);
+        }
+
+        .login-error-message {
+            color: var(--color-rojo);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .login-input {
+                padding: 15px;
+                border: 1px solid var(--color-borde-input);
+                background-color: var(--color-fondo-input);
+                border-radius: 25px;
+                font-size: 1rem;
+                margin-top: clamp(10px, 1vw, 15px);
+                width: 100%;
+                transition: border-color 0.3s ease;
+                font-family: "DM Sans", sans-serif;
+
+                &::placeholder {
+                    /* Para estilizar el placeholder */
+                    color: var(--color-placeholder-input);
+                    opacity: 1; /* Firefox necesita esto a veces */
+                }
+
+                &:focus {
+                    border-color: var(--color-morado-primario);
+                    outline: none;
+                }
+            }
+
+            .login-button {
+                width: 100%;
+                padding: 15px;
+                margin: 20px 0 10px 0;
+                background-color: var(--color-naranja-secundario); /* Naranja */
+                color: #fff;
+                border: none;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 1.1rem;
+                font-weight: bold;
+                font-family: "DM Sans", sans-serif;
+                transition: background-color 0.3s ease;
+
+                &:hover:not(:disabled) {
+                    background-color: var(--color-acento-naranja-hover);
+                }
+
+                &:disabled {
+                    background-color: var(--color-naranja-terciario);
+                    cursor: not-allowed;
+                }
+            }
+
+            .login-forgot-password {
+                color: var(--color-texto-secundario);
+                font-size: 0.9rem;
+                text-decoration: none;
+                font-family: "DM Sans", sans-serif;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
