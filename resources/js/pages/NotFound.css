@@ -15,14 +15,14 @@
 
     .btn {
         display: inline-block;
-        background: #0066cc;
+        background: var(--color-morado-primario);
         color: #fff;
         padding: 0.6rem 1.2rem;
         border-radius: 3px;
         text-decoration: none;
 
         &:hover {
-            background: #005bb5;
+            background: var(--color-morado-secundario);
         }
     }
 }

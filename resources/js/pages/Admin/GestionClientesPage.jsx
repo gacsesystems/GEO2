@@ -7,6 +7,7 @@ import { PlusIcon, PencilIcon, TrashIcon } from "../../components/ui/Icons";
 export default function GestionClientesPage() {
     // Estados para listado
     const [clientes, setClientes] = useState([]);
+    const [clientesFiltrados, setClientesFiltrados] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [fetchError, setFetchError] = useState("");
 
@@ -33,15 +34,35 @@ export default function GestionClientesPage() {
         setFetchError("");
         try {
             const response = await axios.get("/api/clientes");
-            // Asegurarnos de que clientes sea un array
             const clientesData = response.data.data || response.data;
-            setClientes(Array.isArray(clientesData) ? clientesData : []);
+            const clientesArray = Array.isArray(clientesData)
+                ? clientesData
+                : [];
+            setClientes(clientesArray);
+            setClientesFiltrados(clientesArray); // Inicializar los clientes filtrados
         } catch (error) {
             setFetchError(error.response?.data?.message || error.message);
-            setClientes([]); // En caso de error, establecer un array vacío
+            setClientes([]);
+            setClientesFiltrados([]);
         } finally {
             setIsLoading(false);
         }
+    };
+
+    // Función para filtrar clientes
+    const handleSearch = (searchTerm) => {
+        if (!searchTerm.trim()) {
+            setClientesFiltrados(clientes); // Si el término está vacío, mostrar todos
+            return;
+        }
+
+        const term = searchTerm.toLowerCase().trim();
+        const filtrados = clientes.filter(
+            (cliente) =>
+                cliente.razon_social.toLowerCase().includes(term) ||
+                (cliente.alias && cliente.alias.toLowerCase().includes(term))
+        );
+        setClientesFiltrados(filtrados);
     };
 
     // Reinicia formulario a estado inicial
@@ -94,14 +115,23 @@ export default function GestionClientesPage() {
                     clienteData
                 );
 
-                // Actualizar el estado de manera inmutable
+                const clienteActualizado = {
+                    ...(response.data.data || response.data),
+                    id_cliente: editingCliente.id_cliente,
+                };
+
+                // Actualizar ambos estados
                 setClientes((prevClientes) =>
                     prevClientes.map((cliente) =>
                         cliente.id_cliente === editingCliente.id_cliente
-                            ? {
-                                  ...(response.data.data || response.data),
-                                  id_cliente: editingCliente.id_cliente,
-                              }
+                            ? clienteActualizado
+                            : cliente
+                    )
+                );
+                setClientesFiltrados((prevClientes) =>
+                    prevClientes.map((cliente) =>
+                        cliente.id_cliente === editingCliente.id_cliente
+                            ? clienteActualizado
                             : cliente
                     )
                 );
@@ -109,9 +139,15 @@ export default function GestionClientesPage() {
                 setFormMessage("Cliente actualizado con éxito.");
             } else {
                 response = await axios.post("/api/clientes", clienteData);
-                // Agregar el nuevo cliente al estado
                 const nuevoCliente = response.data.data || response.data;
+
+                // Actualizar ambos estados
                 setClientes((prevClientes) => [...prevClientes, nuevoCliente]);
+                setClientesFiltrados((prevClientes) => [
+                    ...prevClientes,
+                    nuevoCliente,
+                ]);
+
                 setFormMessage("Cliente agregado con éxito.");
             }
             resetForm();
@@ -136,7 +172,11 @@ export default function GestionClientesPage() {
         ) {
             try {
                 await axios.delete(`/api/clientes/${clienteId}`);
+                // Actualizar ambos estados
                 setClientes((prev) =>
+                    prev.filter((c) => c.id_cliente !== clienteId)
+                );
+                setClientesFiltrados((prev) =>
                     prev.filter((c) => c.id_cliente !== clienteId)
                 );
             } catch (error) {
@@ -167,14 +207,7 @@ export default function GestionClientesPage() {
                         type="search"
                         placeholder="Buscar cliente..."
                         className="gcp-search-input"
-                        onChange={(e) => {
-                            const term = e.target.value.toLowerCase();
-                            setClientes((prev) =>
-                                prev.filter((c) =>
-                                    c.razon_social.toLowerCase().includes(term)
-                                )
-                            );
-                        }}
+                        onChange={(e) => handleSearch(e.target.value)}
                     />
                     <button
                         onClick={handleOpenModalForCreate}
@@ -273,12 +306,14 @@ export default function GestionClientesPage() {
                 </form>
             </Modal>
             <div className="gcp-clientes-grid">
-                {clientes.length === 0 && !isLoading && (
+                {clientesFiltrados.length === 0 && !isLoading && (
                     <p className="gcp-no-clientes">
-                        No hay clientes para mostrar.
+                        {clientes.length === 0
+                            ? "No hay clientes para mostrar."
+                            : "No se encontraron clientes que coincidan con la búsqueda."}
                     </p>
                 )}
-                {clientes.map((cliente) => (
+                {clientesFiltrados.map((cliente) => (
                     <div
                         key={`cliente-${cliente.id_cliente}`}
                         className={`gcp-cliente-card ${

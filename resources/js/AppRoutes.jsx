@@ -150,10 +150,7 @@ export default function AppRoutes() {
                     path="/admin/clientes"
                     element={<GestionClientesPage />}
                 />
-                <Route
-                    path="/admin/usuarios"
-                    // element={<GestionUsuariosPage />}
-                />
+                <Route path="/admin/usuarios" element={<NotFound />} />
                 {/* ...otras rutas de admin anidadas aquí... */}
             </Route>
 
