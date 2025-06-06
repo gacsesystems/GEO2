@@ -1,0 +1,145 @@
+.vcp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: clamp(1rem, 5vw, 2rem);
+    background-color: #f4f6f8;
+    font-family: "DM Sans", sans-serif;
+}
+
+.vcp-card {
+    background-color: #fff;
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    box-shadow: 0 0.3rem 1.25rem rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: clamp(20rem, 60vw, 35rem);
+    width: 100%;
+}
+
+.vcp-icon {
+    width: clamp(2rem, 8vw, 3.5rem);
+    height: clamp(2rem, 8vw, 3.5rem);
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    color: #9c72d0;
+}
+
+.vcp-icon.success {
+    color: #8cc04e;
+}
+
+.vcp-icon.error {
+    color: #ff443a;
+}
+
+.vcp-icon.info {
+    color: #17a2b8;
+}
+
+.vcp-title {
+    font-family: "Coco Gothic", sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: bold;
+    color: #333;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.vcp-message {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    line-height: 1.6;
+    margin-bottom: clamp(1.25rem, 4vw, 2rem);
+    padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 1.5rem);
+    border-radius: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+.vcp-message.info {
+    background-color: #e6f3ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
+.vcp-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.vcp-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.vcp-actions {
+    margin-top: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+}
+
+.vcp-resend-info {
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    color: #666;
+    margin-bottom: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+.vcp-button {
+    background-color: #9c72d0;
+    color: white;
+    border: none;
+    padding: clamp(0.75rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2rem);
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vcp-button:hover:not(:disabled) {
+    background-color: #8960b7;
+}
+
+.vcp-button:disabled {
+    background-color: #c5b0e0;
+    cursor: not-allowed;
+}
+
+.vcp-footer-links {
+    margin-top: clamp(1.5rem, 4vw, 2rem);
+    padding-top: clamp(1rem, 3vw, 1.5rem);
+    border-top: 1px solid #eee;
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+}
+
+.vcp-link,
+.vcp-link-button {
+    color: #9c72d0;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 clamp(0.5rem, 2vw, 1rem);
+    transition: color 0.2s;
+}
+
+.vcp-link:hover,
+.vcp-link-button:hover {
+    color: #8960b7;
+    text-decoration: underline;
+}
+
+.vcp-link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.vcp-separator {
+    color: #ccc;
+}
+
+.vcp-loading {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    padding: clamp(2rem, 8vw, 3rem);
+    text-align: center;
+}

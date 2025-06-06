@@ -20,7 +20,6 @@
 
         label {
             color: var(--color-texto-primario);
-            margin-bottom: 50px;
         }
 
         .login-title {
@@ -53,7 +52,7 @@
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            /* gap: 15px; */
 
             .login-input {
                 padding: 15px;
@@ -61,7 +60,7 @@
                 background-color: var(--color-fondo-input);
                 border-radius: 25px;
                 font-size: 1rem;
-                margin-top: clamp(10px, 1vw, 15px);
+                /* margin-top: clamp(10px, 1vw, 15px); */
                 width: 100%;
                 transition: border-color 0.3s ease;
                 font-family: "DM Sans", sans-serif;

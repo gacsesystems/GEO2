@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 // Pages
 import Login from "./pages/Auth/Login";
-// import VerificaCorreoPage from "./pages/Auth/VerificaCorreoPage";
+import VerificaCorreo from "./pages/Auth/VerificaCorreo";
 
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import GestionClientes from "./pages/Admin/GestionClientes";
@@ -92,9 +92,7 @@ export default function AppRoutes() {
                         user.email_verified_at ? (
                             <Navigate to={getRedirectPath()} replace />
                         ) : (
-                            {
-                                /* <VerificaCorreoPage /> */
-                            }
+                            <VerificaCorreo />
                         )
                     ) : (
                         <Navigate to="/login" replace />
@@ -105,11 +103,11 @@ export default function AppRoutes() {
             {/* Cuando Laravel envíe al usuario tras verificar correo a /email-verificado-exitosamente */}
             <Route
                 path="/email-verificado-exitosamente"
-                // element={<VerificaCorreoPage />}
+                element={<VerificaCorreo />}
             />
             <Route
                 path="/email-already-verified"
-                // element={<VerificaCorreoPage />}
+                element={<VerificaCorreo />}
             />
 
             {/* 2) RUTA RAÍZ */}
