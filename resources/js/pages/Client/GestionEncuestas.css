@@ -1,0 +1,118 @@
+.gep-container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: clamp(0.5rem, 2vw, 1rem);
+    font-family: "DM Sans", sans-serif;
+
+    .gep-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: clamp(1rem, 3vw, 2rem);
+        gap: clamp(0.5rem, 2vw, 1rem);
+
+        h1 {
+            font-family: "Coco Gothic", sans-serif;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            color: var(--color-texto-primario);
+            margin: 0;
+        }
+
+        .gep-search-container {
+            display: flex;
+            justify-content: flex-start;
+            width: clamp(200px, 50%, 500px);
+
+            .gep-search-input {
+                padding: clamp(0.5rem, 1.5vw, 0.8rem) clamp(1rem, 2vw, 1.2rem);
+                border: 1px solid var(--color-borde-input);
+                border-radius: clamp(1rem, 2vw, 1.5rem);
+                font-size: clamp(0.9rem, 2vw, 1.05rem);
+                flex: 1;
+                max-width: 400px;
+                background-color: var(--color-fondo-input);
+                color: var(--color-texto-input);
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--color-morado-primario);
+                    box-shadow: 0 0 0 clamp(0.2rem, 1vw, 0.4rem)
+                        rgba(156, 114, 208, 0.3);
+                }
+            }
+        }
+
+        .gep-btn-primary {
+            background-color: var(--color-morado-primario);
+            color: #fff;
+            padding: clamp(0.6rem, 1.5vw, 0.8rem) clamp(1rem, 2vw, 1.5rem);
+            border: none;
+            border-radius: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: clamp(0.4rem, 1vw, 0.6rem);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+
+            &:hover {
+                background-color: var(--color-morado-secundario);
+                transform: translateY(-1px);
+            }
+
+            .gep-icon {
+                width: clamp(1rem, 2vw, 1.5rem);
+                height: clamp(1rem, 2vw, 1.5rem);
+            }
+        }
+    }
+}
+
+.gep-loading,
+.gep-info {
+    text-align: center;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: #555;
+}
+
+.gep-error-full {
+    background-color: #fff5f5;
+    color: var(--color-rojo);
+    padding: clamp(0.8rem, 2vw, 1.2rem);
+    border-radius: clamp(0.5rem, 1vw, 0.75rem);
+    border: 1px solid #fc8181;
+    text-align: center;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+}
+
+.gep-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+    margin-top: clamp(1rem, 3vw, 1.5rem);
+}
+
+.gep-btn-secondary {
+    background-color: #e2e8f0;
+    color: #333;
+    padding: clamp(0.5rem, 1.5vw, 0.8rem) clamp(1rem, 2vw, 1.2rem);
+    border: none;
+    border-radius: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.gep-btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+.gep-form-error {
+    color: #c53030;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
+}

@@ -72,17 +72,11 @@
     margin-right: 8px;
 }
 
-.navbar-links li a:hover {
-    background-color: #f0eaff; /* Fondo morado muy claro al pasar el mouse */
-    color: var(
-        --color-morado-primario
-    ); /* Color de texto morado al pasar el mouse */
-}
-
-.navbar-links li a.active {
+.navbar-links li a:hover,
+.active-link {
     /* Estilo para el link activo con NavLink */
     background-color: var(--color-morado-primario); /* Morado principal */
-    color: white;
+    color: white !important;
     font-weight: bold;
 }
 .navbar-links li a.active .nav-icon {

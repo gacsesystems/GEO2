@@ -9,8 +9,10 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import GestionClientes from "./pages/Admin/GestionClientes";
 import GestionUsuarios from "./pages/Admin/GestionUsuarios";
 
+import EncuestaDesigner from "./pages/EncuestaDesigner";
+
 // import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage";
-// import GestionEncuestasPage from "./pages/Cliente/GestionEncuestasPage";
+import GestionEncuestas from "./pages/Client/GestionEncuestas";
 // import DiseñadorEncuestaPage from "./pages/Cliente/DiseñadorEncuestaPage";
 
 // import EncuestaPublicaPage from "./pages/Public/EncuestaPublicaPage";
@@ -154,11 +156,16 @@ export default function AppRoutes() {
                 />
                 <Route
                     path="/cliente/encuestas"
-                    // element={<GestionEncuestasPage />}
+                    element={<GestionEncuestas />}
                 />
                 <Route
                     path="/cliente/encuestas/:idEncuesta/disenar"
                     // element={<DiseñadorEncuestaPage />}
+                />
+                <Route path="encuestas/nuevo" element={<EncuestaDesigner />} />
+                <Route
+                    path="encuestas/:encuestaId/diseño"
+                    element={<EncuestaDesigner />}
                 />
                 {/* ...otras rutas de cliente... */}
             </Route>

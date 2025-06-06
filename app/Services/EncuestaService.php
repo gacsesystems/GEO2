@@ -12,9 +12,9 @@ class EncuestaService
   // /**
   //  * Obtener encuestas para un cliente específico.
   //  */
-  public function obtenerPorCliente(int $idCliente): Collection
+  public function obtenerPorCliente(int $id_cliente): Collection
   {
-    return Encuesta::where('idCliente', $idCliente)
+    return Encuesta::where('id_cliente', $id_cliente)
       ->orderBy('Nombre')
       ->get();
   }
@@ -65,13 +65,13 @@ class EncuestaService
   /**
    * Crear una nueva encuesta.
    * @param array $datos Validados ['nombre', 'descripcion'].
-   * @param int $idCliente El ID del cliente al que pertenece la encuesta.
+   * @param int $id_cliente El ID del cliente al que pertenece la encuesta.
    * @return Encuesta
    */
-  public function crear(array $datos, int $idCliente): Encuesta
+  public function crear(array $datos, int $id_cliente): Encuesta
   {
     $datosCompletos = array_merge($datos, [
-      'id_cliente' => $idCliente,
+      'id_cliente' => $id_cliente,
       // usuario_registro_id será manejado por el Trait Auditable
     ]);
     return Encuesta::create($datosCompletos);

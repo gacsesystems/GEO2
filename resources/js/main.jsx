@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/encuesta-designer.css";
 import "../css/app.css"; // Estilos globales
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";

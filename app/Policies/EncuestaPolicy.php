@@ -33,7 +33,7 @@ class EncuestaPolicy
 
 
     // Si es cliente, solo puede ver si pertenece a su cliente
-    if ($user->esRol('Cliente') && $user->id_cliente === $encuesta->idCliente) {
+    if ($user->esRol('Cliente') && $user->id_cliente === $encuesta->id_cliente) {
       return true;
     }
 
@@ -65,7 +65,7 @@ class EncuestaPolicy
   {
     if ($user->esRol('Administrador')) return true;
 
-    if ($user->esRol('Cliente') && $user->id_cliente === $encuesta->idCliente) {
+    if ($user->esRol('Cliente') && $user->id_cliente === $encuesta->id_cliente) {
       return true;
     }
 
@@ -84,7 +84,7 @@ class EncuestaPolicy
     if ($user->esRol('Administrador')) return true;
 
 
-    if ($user->esRol('Cliente') && $user->id_cliente === $encuesta->idCliente) {
+    if ($user->esRol('Cliente') && $user->id_cliente === $encuesta->id_cliente) {
       return true;
     }
 

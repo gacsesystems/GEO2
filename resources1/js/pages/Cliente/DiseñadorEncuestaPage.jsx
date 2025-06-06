@@ -73,6 +73,9 @@ const DiseñadorEncuestaPage = () => {
     const [showOpcionesModal, setShowOpcionesModal] = useState(false);
     const [preguntaParaOpciones, setPreguntaParaOpciones] = useState(null);
 
+    const [showMapeoModal, setShowMapeoModal] = useState(false);
+    const [preguntaParaMapeo, setPreguntaParaMapeo] = useState(null);
+
     const cargarDetalleEncuestaYTipos = useCallback(
         async (mostrarLoadingGeneral = true) => {
             if (mostrarLoadingGeneral) setLoadingPage(true);
@@ -544,6 +547,20 @@ const DiseñadorEncuestaPage = () => {
         await cargarDetalleEncuestaYTipos(false); // Recarga todo el diseñador
     };
 
+    const handleAbrirModalMapeo = (pregunta) => {
+        setPreguntaParaMapeo(pregunta);
+        setShowMapeoModal(true);
+        setOperationError("");
+    };
+    const handleCerrarMapeoModal = () => {
+        setShowMapeoModal(false);
+        setPreguntaParaMapeo(null);
+    };
+    const handleMapeoGuardado = async () => {
+        // El editor ya guardó, solo necesitamos recargar los datos para ver el mapeo actualizado si es necesario
+        await cargarDetalleEncuestaYTipos(false); // Recarga para que `pregunta.mapeo_externo` se actualice
+    };
+
     if (loadingPage && !encuesta)
         return <div className="loading-fullscreen">Cargando diseñador...</div>;
     if (operationError && !encuesta)
@@ -675,6 +692,7 @@ const DiseñadorEncuestaPage = () => {
                                 onGestionarOpciones={handleAbrirModalOpciones} // Abre el modal de opciones
                                 onReordenarPregunta={handleReordenarPregunta}
                                 isLoading={loadingPage} // Podría ser un loading más específico para la lista
+                                onAbrirModalMapeo={handleAbrirModalMapeo}
                             />
                             <button
                                 onClick={() =>
@@ -853,6 +871,23 @@ const DiseñadorEncuestaPage = () => {
                             Cerrar
                         </button>
                     </div>
+                </Modal>
+            )}
+
+            {preguntaParaMapeo && (
+                <Modal
+                    isOpen={showMapeoModal}
+                    onClose={handleCerrarMapeoModal}
+                    title={`Mapeo Externo para: "${preguntaParaMapeo.texto_pregunta.substring(
+                        0,
+                        30
+                    )}..."`}
+                >
+                    <PreguntaMapeoEditor
+                        pregunta={preguntaParaMapeo}
+                        onMapeoGuardado={handleMapeoGuardado} // Para recargar la data
+                        onCerrar={handleCerrarMapeoModal}
+                    />
                 </Modal>
             )}
         </div>

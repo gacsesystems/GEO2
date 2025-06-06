@@ -24,9 +24,9 @@ class ClienteService
   /**
    * Obtener un cliente por su ID.
    */
-  public function obtenerPorId(int $idCliente): ?Cliente
+  public function obtenerPorId(int $id_cliente): ?Cliente
   {
-    return Cliente::findOrFail($idCliente);
+    return Cliente::findOrFail($id_cliente);
   }
 
   /**

@@ -58,34 +58,63 @@
 .navbar-links li a {
     display: flex;
     align-items: center;
-    padding: 10px 15px; /* Aumentar padding para mejor clickeabilidad */
+    padding: 10px 15px;
     text-decoration: none;
-    color: #555; /* Color de texto para links */
-    font-weight: 500; /* Un poco más de peso */
+    color: #555;
+    font-weight: 500;
     font-size: 0.95rem;
-    border-radius: 6px; /* Bordes redondeados sutiles para los links */
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
 }
 
 .navbar-links li a .nav-icon {
     width: 18px;
     height: 18px;
     margin-right: 8px;
+    transition: color 0.2s ease-in-out;
 }
 
 .navbar-links li a:hover {
-    background-color: #f0eaff; /* Fondo morado muy claro al pasar el mouse */
-    color: #9c72d0; /* Color de texto morado al pasar el mouse */
+    background-color: #f0eaff;
+    color: #9c72d0;
+}
+
+.navbar-links li a:hover .nav-icon {
+    color: #9c72d0;
 }
 
 .navbar-links li a.active {
-    /* Estilo para el link activo con NavLink */
-    background-color: #9c72d0; /* Morado principal */
+    background-color: #9c72d0;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
 }
+
 .navbar-links li a.active .nav-icon {
-    color: white; /* Asegurar que el icono también cambie */
+    color: white;
+}
+
+/* Efecto hover para el link activo */
+.navbar-links li a.active:hover {
+    background-color: #8a5db5; /* Un tono más oscuro del morado principal */
+    color: white;
+}
+
+.navbar-links li a.active:hover .nav-icon {
+    color: white;
+}
+
+/* Añadir un indicador sutil para el link activo */
+.navbar-links li a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background-color: #9c72d0;
+    border-radius: 2px;
 }
 
 .navbar-user-section {

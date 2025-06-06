@@ -57,6 +57,7 @@ export default function Navbar() {
                 </div>
 
                 <ul className="navbar-links">
+                    {/* === Enlaces para Administrador === */}
                     {isAdmin && (
                         <>
                             <li>
@@ -89,6 +90,17 @@ export default function Navbar() {
                                 >
                                     <UsersIcon className="icon-inline" />{" "}
                                     Usuarios
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/admin/encuestas"
+                                    className={({ isActive }) =>
+                                        isActive ? "active-link" : undefined
+                                    }
+                                >
+                                    <SurveyIcon className="icon-inline" />{" "}
+                                    Encuestas
                                 </NavLink>
                             </li>
                             {/* Añade aquí más enlaces de admin si gustas */}

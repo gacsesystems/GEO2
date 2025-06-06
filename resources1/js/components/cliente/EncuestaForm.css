@@ -61,3 +61,17 @@
     min-height: 100px; /* Un poco más alto que el default */
     resize: vertical; /* Permitir redimensionar verticalmente */
 }
+
+.encuesta-form .form-grid-cuestionario {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas para las fechas */
+    gap: 16px; /* Espacio entre los campos de fecha */
+    margin-top: 10px; /* Espacio después del checkbox 'es_cuestionario' */
+}
+
+@media (max-width: 600px) {
+    /* En pantallas pequeñas, una columna */
+    .encuesta-form .form-grid-cuestionario {
+        grid-template-columns: 1fr;
+    }
+}

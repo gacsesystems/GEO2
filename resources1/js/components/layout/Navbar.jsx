@@ -55,36 +55,61 @@ function Navbar() {
                     {isAdmin && (
                         <>
                             <li>
-                                <NavLink to="/admin/dashboard">
-                                    Dashboard
+                                <NavLink
+                                    to="/admin/dashboard"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                    end
+                                >
+                                    <HomeIcon /> Dashboard
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/admin/clientes">
+                                <NavLink
+                                    to="/admin/clientes"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                >
                                     <ClientsIcon /> Clientes
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/admin/usuarios">
+                                <NavLink
+                                    to="/admin/usuarios"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                >
                                     <UsersIcon /> Usuarios
                                 </NavLink>
                             </li>
-                            {/* Puedes añadir más links de admin aquí, ej: Configuración */}
                         </>
                     )}
                     {isCliente && (
                         <>
                             <li>
-                                <NavLink to="/cliente/dashboard">
-                                    Dashboard
+                                <NavLink
+                                    to="/cliente/dashboard"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                    end
+                                >
+                                    <HomeIcon /> Dashboard
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/cliente/encuestas">
+                                <NavLink
+                                    to="/cliente/encuestas"
+                                    className={({ isActive }) =>
+                                        isActive ? "active" : ""
+                                    }
+                                >
                                     <SurveyIcon /> Mis Encuestas
                                 </NavLink>
                             </li>
-                            {/* Links a "Nueva Encuesta", "Perfil" etc. */}
                         </>
                     )}
                 </ul>

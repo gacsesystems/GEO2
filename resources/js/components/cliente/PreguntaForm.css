@@ -1,0 +1,85 @@
+/* Asegúrate que estas variables CSS estén definidas en tu app.css o un archivo de variables */
+:root {
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --color-border-light: #e2e8f0;
+    --color-primary-medium: #9c72d0; /* Tu morado */
+    --border-radius-sm: 4px;
+    /* ...otras variables que uses ... */
+}
+
+/* Estilos base para formularios (si no son globales) */
+.pregunta-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Espacio entre etiqueta e input */
+    margin-bottom: var(--spacing-md); /* Espacio entre grupos */
+}
+.pregunta-form .form-group label {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+/* ... (más estilos base para input, select, textarea, error-message, checkbox-group, etc.,
+   similares a los de EncuestaForm.css o UsuarioForm.css si no son globales) ... */
+/* Si los tienes globales, no necesitas repetirlos. */
+
+.pregunta-form .form-grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  Un poco más de espacio mínimo */
+    grid-template-columns: 1fr 1fr; /* Dos columnas por defecto */
+    gap: var(--spacing-md) var(--spacing-lg); /* gap vertical y horizontal */
+}
+
+/* Responsive: una columna en pantallas pequeñas */
+@media (max-width: 768px) {
+    .pregunta-form .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .pregunta-form .form-group.span-2 {
+        grid-column: span 1; /* Ocupar una columna en móvil */
+    }
+}
+
+.pregunta-form .form-group.span-2 {
+    grid-column: span 2; /* Para que un campo ocupe dos columnas en el grid de 2 columnas */
+}
+
+.pregunta-form .form-group.align-self-end {
+    align-self: end; /* Para alinear el checkbox con los inputs */
+    /* padding-bottom: clamp(0.6rem, 1vw, 0.8rem); */ /* Ajuste de línea base */
+    margin-bottom: var(--spacing-md); /* Mantener margen con otros form-group */
+}
+/* .pregunta-form .form-group.checkbox-group { */
+/* Reutiliza tus estilos de checkbox */
+/* ... tus estilos de checkbox-group ... */
+/* } */
+
+.pregunta-form .conditional-logic-group {
+    border: 1px solid var(--color-border-light);
+    padding: var(--spacing-md); /* Aumentar padding */
+    border-radius: var(--border-radius-sm);
+    margin-top: var(--spacing-sm);
+    grid-column: span 2; /* Ocupar todo el ancho del grid principal */
+}
+.pregunta-form .conditional-logic-group > label.group-title-label {
+    /* Etiqueta principal del grupo */
+    font-weight: bold;
+    color: var(--color-primary-medium);
+    margin-bottom: var(--spacing-md); /* Más espacio */
+    display: block; /* Para que el margen inferior funcione bien */
+    font-size: 1rem; /* Un poco más grande */
+}
+.pregunta-form .nested-grid {
+    /* Si usas grid dentro del grupo condicional */
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(200px, 1fr)
+    ); /* Ajusta el minmax */
+    gap: var(--spacing-sm) var(--spacing-md); /* gap vertical y horizontal */
+}

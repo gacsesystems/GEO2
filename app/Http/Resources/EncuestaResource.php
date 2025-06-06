@@ -30,10 +30,11 @@ class EncuestaResource extends JsonResource
                 $this->whenLoaded('seccionesEncuesta')
             ),
 
-            // Ejemplo de HATEOAS
+            // Links para la API
             'links'              => [
                 'self'     => route('encuestas.show', $this->id_encuesta),
-                'responder' => route('encuestas.responder', $this->id_encuesta),
+                // 'disenar'  => route('encuestas.disenar', $this->id_encuesta),
+                // 'reportes' => route('encuestas.reportes', $this->id_encuesta),
             ],
 
             'fecha_registro' => $this->created_at?->toIso8601String(),

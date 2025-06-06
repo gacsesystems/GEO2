@@ -1,0 +1,251 @@
+:root {
+    --color-bg: #fafafa;
+    --color-border: #ddd;
+    --color-primary: #3b82f6;
+    --color-secondary: #10b981;
+    --color-danger: #ef4444;
+    --font-base: clamp(1rem, 1.5vw, 1.125rem);
+    --font-heading: clamp(1.25rem, 2vw, 1.75rem);
+    --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+    --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+    --space-md: clamp(1rem, 2vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Reset ligero */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.survey-designer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+}
+
+/* Header */
+.survey-designer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+}
+.survey-designer__header h1 {
+    font-size: var(--font-heading);
+}
+.survey-designer__header button {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-base);
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--space-xs);
+    cursor: pointer;
+}
+.survey-designer__header button:hover {
+    background-color: darken(var(--color-primary), 10%);
+}
+
+/* Lista de secciones */
+.section-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* Tarjeta de sección */
+.section-item {
+    background-color: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--space-xs);
+    padding: var(--space-md);
+    position: relative;
+}
+
+.section-item.dragging {
+    opacity: 0.5;
+    border-color: var(--color-primary);
+}
+
+/* Encabezado de sección */
+.section-item__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+.section-item__title {
+    font-size: var(--font-base);
+    font-weight: bold;
+    cursor: grab;
+}
+.section-item__title:active {
+    cursor: grabbing;
+}
+.section-item__actions button {
+    margin-left: var(--space-sm);
+    background: none;
+    border: none;
+    font-size: var(--font-base);
+    cursor: pointer;
+    color: var(--color-danger);
+}
+.section-item__actions button:hover {
+    color: darken(var(--color-danger), 10%);
+}
+
+/* Lista de preguntas dentro de una sección */
+.question-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+/* Tarjeta de pregunta */
+.question-item {
+    background-color: #f9fafb;
+    border: 1px solid var(--color-border);
+    border-radius: var(--space-xs);
+    padding: var(--space-sm);
+    position: relative;
+}
+.question-item.dragging {
+    opacity: 0.5;
+    border-color: var(--color-secondary);
+}
+.question-item__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.question-item__text {
+    font-size: var(--font-base);
+    cursor: grab;
+}
+.question-item__text:active {
+    cursor: grabbing;
+}
+.question-item__actions {
+    display: flex;
+    gap: var(--space-xs);
+}
+.question-item__actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-danger);
+}
+.question-item__actions button:hover {
+    color: darken(var(--color-danger), 10%);
+}
+
+/* Formulario “Agregar/Editar” en la parte inferior de cada sección */
+.section-item__add-question,
+.survey-designer__add-section {
+    margin-top: var(--space-md);
+}
+.section-item__add-question button,
+.survey-designer__add-section button {
+    background-color: var(--color-secondary);
+    color: #fff;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-base);
+    border-radius: var(--space-xs);
+    cursor: pointer;
+}
+.section-item__add-question button:hover,
+.survey-designer__add-section button:hover {
+    background-color: darken(var(--color-secondary), 10%);
+}
+
+/* Modal flotante (para editar sección o pregunta) */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-container {
+    background: #fff;
+    border-radius: var(--space-xs);
+    padding: var(--space-lg);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.modal-container h2 {
+    font-size: var(--font-heading);
+    margin-bottom: var(--space-sm);
+}
+.modal-container label {
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+.modal-container input[type="text"],
+.modal-container select,
+.modal-container textarea {
+    width: 100%;
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--space-xs);
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-base);
+}
+.modal-container .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+}
+.modal-container .modal-actions button {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-base);
+    border: none;
+    border-radius: var(--space-xs);
+    cursor: pointer;
+}
+.modal-container .modal-actions .btn-cancel {
+    background-color: #ccc;
+    color: #333;
+}
+.modal-container .modal-actions .btn-cancel:hover {
+    background-color: #aaa;
+}
+.modal-container .modal-actions .btn-save {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+.modal-container .modal-actions .btn-save:hover {
+    background-color: darken(var(--color-primary), 10%);
+}
+
+/* Opciones dentro de PreguntaEditor */
+.option-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+.option-item input[type="text"] {
+    flex: 1;
+}
+.option-item button {
+    background: none;
+    border: none;
+    color: var(--color-danger);
+    cursor: pointer;
+}

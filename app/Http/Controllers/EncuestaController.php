@@ -24,8 +24,6 @@ use Illuminate\Contracts\Encryption\DecryptException; // Para manejar errores de
  */
 class EncuestaController extends Controller
 {
-    protected EncuestaService $encuestaService;
-
     public function __construct(private EncuestaService $service)
     {
         // 1) Protegemos todo con Sanctum
@@ -72,7 +70,7 @@ class EncuestaController extends Controller
     public function porCliente(Cliente $cliente): AnonymousResourceCollection|JsonResponse
     {
         // La política viewAny ya permitió el acceso solo a Administradores
-        $encuestas = $this->encuestaService->obtenerPorId($cliente->id_cliente);
+        $encuestas = $this->service->obtenerPorId($cliente->id_cliente);
         return EncuestaResource::collection($encuestas);
     }
 
@@ -177,11 +175,11 @@ class EncuestaController extends Controller
         // Solo el propietario de la encuesta (cliente) o un administrador pueden ver el detalle completo.
         // Para responder, se usará un endpoint público sin autenticación.
         // Política “view” ya validó Admin vs. propietario, pero volvemos a checar cliente
-        if (! $user->esRol('Administrador') && $user->id_cliente !== $encuesta->idCliente) {
+        if (! $user->esRol('Administrador') && $user->id_cliente !== $encuesta->id_cliente) {
             return response()->json(['message' => 'No autorizado para ver el detalle de esta encuesta.'], 403);
         }
 
-        $detalle = $this->encuestaService->obtenerDetalleCompleto($encuesta->id_encuesta);
+        $detalle = $this->service->obtenerDetalleCompleto($encuesta->id_encuesta);
         if (! $detalle) return response()->json(['message' => 'Encuesta no encontrada.'], 404);
 
         return new EncuestaDetalleResource($detalle);
@@ -217,7 +215,7 @@ class EncuestaController extends Controller
      *   @OA\Response(response=404, description="Encuesta no encontrada")
      * )
      */
-    public function update(UpdateEncuestaRequest $request, Encuesta $encuesta): EncuestaResource
+    public function update(UpdateEncuestaRequest $request, Encuesta $encuesta): EncuestaResource|JsonResponse
     {
         $data = $request->validated(); // 1) El FormRequest ya autorizó con can:update y validó nombre/descripcion
 
@@ -258,7 +256,7 @@ class EncuestaController extends Controller
     public function destroy(Encuesta $encuesta): JsonResponse
     {
         $this->authorize('delete', $encuesta); // 1) Autorizar vía Policy (EncuestaPolicy::delete)
-        $this->encuestaService->eliminar($encuesta); // 2) Delegar al Service (El Service usa $encuesta->delete())
+        $this->service->eliminar($encuesta); // 2) Delegar al Service (El Service usa $encuesta->delete())
         return response()->json(null, 204); // 3) Devolver 204 No Content
     }
 
@@ -286,7 +284,7 @@ class EncuestaController extends Controller
      */
     public function publica(int $idEncuesta) // No hay Type Hinting de Encuesta aquí para evitar middleware de auth implícito
     {
-        $encuesta = $this->encuestaService->obtenerDetalleCompleto($idEncuesta);
+        $encuesta = $this->service->obtenerDetalleCompleto($idEncuesta);
 
         if (!$encuesta || !$encuesta->cliente?->activo) { // También chequear si el cliente de la encuesta está activo
             return response()->json(['message' => 'Encuesta no disponible o no encontrada.'], 404);
@@ -318,7 +316,7 @@ class EncuestaController extends Controller
      *     description="Código cifrado generado",
      *     @OA\JsonContent(
      *        @OA\Property(property="codigo_url", type="string", example="eyJpdiI6In..."),
-     *        @OA\Property(property="url_sugerida_frontend", type="string", example="https://miapp.com/survey/code/eyJpdiI6In...")
+     *        @OA\Property(property="url_sugerida_frontend", type="string", example="https://miapp.com/encuesta/codigo/eyJpdiI6In...")
      *     )
      *   ),
      *   @OA\Response(response=401, description="No autenticado"),
@@ -330,7 +328,7 @@ class EncuestaController extends Controller
     {
         // Autorización: Solo el dueño de la encuesta o un admin puede generar esto
         $user = Auth::user();
-        if (! $user->esRol('Administrador') && $user->id_cliente !== $encuesta->idCliente) {
+        if (! $user->esRol('Administrador') && $user->id_cliente !== $encuesta->id_cliente) {
             return response()->json(['message' => 'No autorizado.'], 403);
         }
 
@@ -341,7 +339,7 @@ class EncuestaController extends Controller
         return response()->json([
             'id_encuesta' => $encuesta->id_encuesta,
             'codigo_url' => $codigoUrl,
-            'url_sugerida_frontend' => url('/survey/code/' . $codigoUrl) // Ejemplo
+            'url_sugerida_frontend' => url('/encuesta/codigo/' . $codigoUrl) // Ejemplo
         ]);
     }
 
@@ -389,7 +387,7 @@ class EncuestaController extends Controller
      * Si llega paciente_id, intenta cargar datos en SQL Server via Paciente.
      * Si no llega, regresa la estructura con todos los valores en blanco.
      */
-    public function cuestionarioParaPaciente(int $encuesta, int $paciente_id = null): JsonResponse
+    public function cuestionarioParaPaciente(int $encuesta, ?int $paciente_id = null): JsonResponse
     {
         // 1) Cargar la encuesta con secciones + preguntas:
         $enc = Encuesta::with([

@@ -23,6 +23,10 @@ const GestionEncuestasPage = () => {
     const [nombreEncuesta, setNombreEncuesta] = useState("");
     const [descripcionEncuesta, setDescripcionEncuesta] = useState("");
 
+    const [esCuestionario, setEsCuestionario] = useState(false);
+    const [fechaInicio, setFechaInicio] = useState("");
+    const [fechaFin, setFechaFin] = useState("");
+
     const navigate = useNavigate();
 
     const cargarEncuestas = useCallback(async () => {
@@ -49,6 +53,9 @@ const GestionEncuestasPage = () => {
     const resetFormFields = () => {
         setNombreEncuesta("");
         setDescripcionEncuesta("");
+        setEsCuestionario(false);
+        setFechaInicio("");
+        setFechaFin("");
         setLocalFormError("");
         setApiError(""); // También limpia el error de API al resetear/abrir form
     };
@@ -64,6 +71,9 @@ const GestionEncuestasPage = () => {
         setEncuestaActual(encuesta);
         setNombreEncuesta(encuesta.nombre || "");
         setDescripcionEncuesta(encuesta.descripcion || "");
+        setEsCuestionario(encuesta.es_cuestionario || false);
+        setFechaInicio(encuesta.fecha_inicio?.substring(0, 10) || ""); // Formato YYYY-MM-DD para input date
+        setFechaFin(encuesta.fecha_fin?.substring(0, 10) || "");
         setLocalFormError("");
         setApiError("");
         setModalTitulo(`Editar Encuesta: ${encuesta.nombre}`);
@@ -95,6 +105,9 @@ const GestionEncuestasPage = () => {
         const encuestaData = {
             nombre: nombreEncuesta,
             descripcion: descripcionEncuesta,
+            es_cuestionario: esCuestionario,
+            fecha_inicio: esCuestionario && fechaInicio ? fechaInicio : null,
+            fecha_fin: esCuestionario && fechaFin ? fechaFin : null,
         };
 
         try {

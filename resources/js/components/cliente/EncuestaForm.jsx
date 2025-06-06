@@ -1,25 +1,23 @@
-import React from "react"; // No necesitas useState, useEffect si es puramente presentacional
+import React from "react";
 import "./EncuestaForm.css";
 
 const EncuestaForm = ({
-    // --- Estado y setters del padre ---
     nombre,
     setNombre,
     descripcion,
     setDescripcion,
     esCuestionario,
-    setEsCuestionario, // NUEVO
+    setEsCuestionario,
     fechaInicio,
-    setFechaInicio, // NUEVO
+    setFechaInicio,
     fechaFin,
-    setFechaFin, // NUEVO
-    // --- UI y errores ---
+    setFechaFin,
     formErrorLocal,
     apiError,
     isLoading,
 }) => {
     return (
-        <>
+        <div className="encuesta-form">
             {(formErrorLocal || apiError) && (
                 <p className="error-message form-error">
                     {formErrorLocal || apiError}
@@ -41,6 +39,7 @@ const EncuestaForm = ({
                     maxLength="100"
                 />
             </div>
+
             <div className="form-group">
                 <label htmlFor="descripcionEncuestaForm">
                     Descripción (Opcional)
@@ -56,7 +55,7 @@ const EncuestaForm = ({
                 />
             </div>
 
-            {/* NUEVOS CAMPOS PARA CUESTIONARIO */}
+            {/* Checkbox “Es cuestionario” */}
             <div className="form-group checkbox-group">
                 <input
                     type="checkbox"
@@ -67,17 +66,15 @@ const EncuestaForm = ({
                     disabled={isLoading}
                 />
                 <label htmlFor="esCuestionarioForm" className="checkbox-label">
-                    Es un cuestionario de paciente (con fechas de vigencia)
+                    Es un cuestionario de paciente (con fechas)
                 </label>
             </div>
 
             {esCuestionario && (
                 <div className="form-grid-cuestionario">
-                    {" "}
-                    {/* Un mini-grid para las fechas */}
                     <div className="form-group">
                         <label htmlFor="fechaInicioEncuestaForm">
-                            Fecha de Inicio (Opcional)
+                            Fecha de Inicio
                         </label>
                         <input
                             type="date"
@@ -90,7 +87,7 @@ const EncuestaForm = ({
                     </div>
                     <div className="form-group">
                         <label htmlFor="fechaFinEncuestaForm">
-                            Fecha de Fin (Opcional)
+                            Fecha de Fin
                         </label>
                         <input
                             type="date"
@@ -104,7 +101,7 @@ const EncuestaForm = ({
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

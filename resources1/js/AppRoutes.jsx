@@ -7,6 +7,7 @@ import LoginPage from "./pages/Auth/LoginPage";
 
 import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
 import GestionClientesPage from "./pages/Admin/GestionClientesPage";
+import CuestionarioPacientePage from "./pages/CuestionarioPacientePage";
 // import GestionUsuariosPage from "./pages/Admin/GestionUsuariosPage"; // Crear después
 
 // import ClienteDashboardPage from "./pages/Cliente/ClienteDashboardPage"; // Crear después
@@ -66,7 +67,6 @@ function AppRoutes() {
                     )
                 }
             />
-
             {/* RUTA RAÍZ */}
             <Route
                 path="/"
@@ -77,6 +77,10 @@ function AppRoutes() {
                         <Navigate to="/login" replace />
                     )
                 }
+            />
+            <Route
+                path="/cuestionario/:idEncuesta/:pacienteId?"
+                element={<CuestionarioPacientePage />}
             />
 
             {/* RUTA DE DASHBOARD GENÉRICO (PROTEGIDA) */}
@@ -97,7 +101,6 @@ function AppRoutes() {
                     }
                 />
             </Route>
-
             {/* --- RUTAS DE ADMINISTRADOR --- */}
             {/* Estas rutas requieren autenticación, rol de Administrador Y correo verificado */}
             <Route element={<AdminLayout />}>
@@ -124,7 +127,6 @@ function AppRoutes() {
                     {/* Añade más rutas de admin aquí dentro si todas requieren la misma protección */}
                 </Route>
             </Route>
-
             {/* --- RUTAS DE CLIENTE --- */}
             {/* Estas rutas requieren autenticación, rol de Cliente Y correo verificado */}
             <Route
@@ -163,7 +165,6 @@ function AppRoutes() {
                 />
                 {/* Añade más rutas de cliente aquí dentro */}
             </Route>
-
             {/* --- RUTA DE VERIFICACIÓN DE CORREO --- */}
             {/* Esta ruta solo requiere autenticación (para saber QUIÉN está intentando reenviar),
                 NO requiere que el email ya esté verificado. */}
@@ -173,7 +174,6 @@ function AppRoutes() {
                     element={<VerificaCorreoPage />}
                 />
             </Route>
-
             {/* RUTAS DE RESULTADO DE VERIFICACIÓN (públicas en el sentido de acceso, pero el usuario estará logueado) */}
             {/* Laravel redirigirá aquí. VerificaCorreoPage manejará el mensaje. */}
             <Route
@@ -184,7 +184,6 @@ function AppRoutes() {
                 path="/email-already-verified"
                 element={<VerificaCorreoPage />}
             />
-
             {/* RUTA CATCH-ALL PARA 404 */}
             <Route
                 path="*"

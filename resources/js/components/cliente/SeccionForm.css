@@ -1,0 +1,34 @@
+/* Asume que .form-group, label, input, .error-message, .form-error
+   están definidos en un CSS global o copia los estilos de EncuestaForm.css aquí. */
+
+.seccion-form .form-group {
+    /* Ejemplo si heredas y quieres sobreescribir/añadir */
+    margin-bottom: 20px;
+}
+
+.seccion-form textarea {
+    min-height: 80px;
+    resize: vertical;
+    font-family: "DM Sans", sans-serif;
+    padding: 10px 12px;
+}
+
+/* Si los estilos base de formulario no son globales, cópialos aquí desde EncuestaForm.css */
+/* .seccion-form .form-group label { */
+/* ... */
+/* } */
+/* .seccion-form .form-group input[type="text"], */
+/* .seccion-form .form-group textarea { */
+/* ... */
+/* } */
+/* .seccion-form .form-group input[type="text"]:focus, */
+/* .seccion-form .form-group textarea:focus { */
+/* ... */
+/* } */
+/* .seccion-form .form-group input:disabled, */
+/* .seccion-form .form-group textarea:disabled { */
+/* ... */
+/* } */
+/* .seccion-form .error-message.form-error { */
+/* ... */
+/* } */
